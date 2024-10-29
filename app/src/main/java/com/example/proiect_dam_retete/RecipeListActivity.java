@@ -40,7 +40,7 @@ public class RecipeListActivity extends AppCompatActivity {
 
         ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(
                 this,
-                android.R.layout.simple_list_item_2,  // This layout has two text views
+                android.R.layout.simple_list_item_2,
                 android.R.id.text1,
                 recipes
         ) {
@@ -58,7 +58,7 @@ public class RecipeListActivity extends AppCompatActivity {
                     StringBuilder recipeIngredients = new StringBuilder();
                     recipeIngredients.append("Ingredients: ");
                     for (Ingredient ingredient : recipe.getIngredientList()) {
-                        recipeIngredients.append(ingredient.toString());
+                        recipeIngredients.append(ingredient.getIngredient_name().toString());
                     }
                     text2.setText(recipeIngredients.toString());
                 }
@@ -74,7 +74,7 @@ public class RecipeListActivity extends AppCompatActivity {
 //                    Toast.LENGTH_SHORT).show();
 //        });
     }
-
+    //TODO: Make the generator a part of the Recipe class
     //TODO: Delete generateRandomRecipes after coupling with other activities
     private ArrayList<Recipe> generateRandomRecipes(int count) {
         ArrayList<Recipe> recipes = new ArrayList<>();
