@@ -5,15 +5,18 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecipeListActivity">
-    <ListView
-        android:id="@+id/recipe_list_activity_list_view"
-        android:layout_width="match_parent"
+    tools:context=".MainActivity">
+    <!-- TODO: remove this button, for testing only       -->
+    <Button
+        android:id="@+id/main_activity_launch_recipe_list_btn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding= "8dp"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:text="Press me"
+        android:lines="1"
+        android:layout_marginBottom="30dp"></Button>
 </androidx.constraintlayout.widget.ConstraintLayout>
