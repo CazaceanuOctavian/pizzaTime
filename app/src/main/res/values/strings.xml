@@ -44,4 +44,5 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="default_logging_string">logging</string>
+    <string name="empty_string" />
 </resources>

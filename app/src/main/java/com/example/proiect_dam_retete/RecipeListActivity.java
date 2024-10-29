@@ -2,6 +2,7 @@ package com.example.proiect_dam_retete;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -40,39 +42,56 @@ public class RecipeListActivity extends AppCompatActivity {
 
         ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(
                 this,
-                android.R.layout.simple_list_item_2,
-                android.R.id.text1,
+                R.layout.recipe_item_layout,
                 recipes
         ) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-                View view = super.getView(position, convertView, parent);
+                View view = convertView;
+                if (view == null) {
+                    view = LayoutInflater.from(getContext())
+                            .inflate(R.layout.recipe_item_layout, parent, false);
+                }
 
-                TextView text1 = view.findViewById(android.R.id.text1);
-                TextView text2 = view.findViewById(android.R.id.text2);
 
                 Recipe recipe = getItem(position);
+
+                TextView titleView = view.findViewById(R.id.recipe_activity_list_item_title);
+                TextView ingredientsView = view.findViewById(R.id.recipe_activity_list_item_ingredients);
+                TextView descriptionView = view.findViewById(R.id.recipe_activity_list_item_description);
+                descriptionView.setVisibility(View.GONE);
                 if (recipe != null) {
-                    text1.setText(recipe.getNume());
+                    titleView.setText(recipe.getNume());
 
                     StringBuilder recipeIngredients = new StringBuilder();
                     recipeIngredients.append("Ingredients: ");
                     for (Ingredient ingredient : recipe.getIngredientList()) {
                         recipeIngredients.append(ingredient.getIngredient_name().toString());
                     }
-                    text2.setText(recipeIngredients.toString());
+                    ingredientsView.setText(recipeIngredients.toString());
                 }
 
                 return view;
             }
         };
         listView.setAdapter(adapter);
-//        listView.setOnItemClickListener((parent, view, position, id) -> {
-//            Recipe selectedRecipe = adapter.getItem(position);
-//            Toast.makeText(this,
-//                    "Selected: " + selectedRecipe.getNume(),
-//                    Toast.LENGTH_SHORT).show();
-//        });
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            TextView descriptionView = view.findViewById(R.id.recipe_activity_list_item_description);
+            Recipe recipe = adapter.getItem(position);
+            String currentFooter = descriptionView.getText().toString();
+
+            if (position == currentSelectedRecipe) {
+                descriptionView.setVisibility(View.GONE);
+                descriptionView.setText(R.string.empty_string);
+                currentSelectedRecipe = -1;
+
+            } else {
+                descriptionView.setVisibility(View.VISIBLE);
+                descriptionView.setText(recipe.getDescriere());
+                currentSelectedRecipe = position;
+
+            }
+        });
     }
     //TODO: Make the generator a part of the Recipe class
     //TODO: Delete generateRandomRecipes after coupling with other activities
