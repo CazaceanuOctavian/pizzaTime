@@ -5,6 +5,137 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/img1"
     tools:context=".AddRecipeFormActivity">
 
+    <TextView
+        android:id="@+id/dulica_georgiana_denisa_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/create_recipe"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/dulica_georgiana_denisa_tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/recipe_title"
+        android:textSize="18sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dulica_georgiana_denisa_tv_title">
+
+    </TextView>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dulica_georgiana_denisa_recipe_name_L"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/dulica_georgiana_denisa_tv_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="15dp"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dulica_georgiana_denisa_recipe_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/TitleText"
+            android:inputType="text"
+            android:hint="@string/act_add_recipe_recipe_name"
+            >
+        </com.google.android.material.textfield.TextInputEditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/dulica_georgiana_denisa_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/dulica_georgiana_denisa_recipe_name_L"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:text="@string/act_add_recipe_tv_ingredients"
+        android:textSize="18sp"
+        >
+    </TextView>
+
+    <TextView
+        android:id="@+id/dulica_georgiana_denisa_ingredients_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="18sp"
+        style="@style/TitleText"
+        app:layout_constraintTop_toBottomOf="@+id/dulica_georgiana_denisa_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        >
+
+    </TextView>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dulica_georgiana_denisa_description_L"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/dulica_georgiana_denisa_ingredients_list"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="20dp"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dulica_georgiana_denisa_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            style="@style/TitleText"
+            android:hint="@string/act_add_recipe_recipe_description"
+            android:maxLines="7"
+            >
+        </com.google.android.material.textfield.TextInputEditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/dulica_georgiana_denisa_submit"
+        style="@style/Buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="50dp"
+        android:text="@string/act_add_recipe_submit_btn"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/dulica_georgiana_denisa_add_ingredient"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </Button>
+
+    <Button
+        android:id="@+id/dulica_georgiana_denisa_add_ingredient"
+        style="@style/Buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="50dp"
+        android:text="@string/act_add_recipe_add_ingredient_btn"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dulica_georgiana_denisa_submit">
+
+    </Button>
 </androidx.constraintlayout.widget.ConstraintLayout>
