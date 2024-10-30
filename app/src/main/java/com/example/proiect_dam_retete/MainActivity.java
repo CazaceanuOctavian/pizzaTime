@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         //TODO --> move this to the navview
         Button navigateButton = findViewById(R.id.main_activity_launch_recipe_list_btn);
+
         this.mainNav = findViewById(R.id.cazaceanu_octavian_main_navview);
         this.mainToolbar = findViewById(R.id.cazaceanu_octavian_main_toolbar);
         this.mainDrawerLayout = findViewById(R.id.cazaceanu_octavian_main_drawer_layout);
@@ -39,13 +40,25 @@ public class MainActivity extends AppCompatActivity {
             this, mainDrawerLayout, mainToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
         );
         toggleObject.syncState();
+
+        mainNav.setNavigationItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.nav_recipes) {
+                //TODO --> implement
+                // Create an Intent to start SecondActivity
+                Intent intent = new Intent(MainActivity.this, RecipeListActivity.class);
+                startActivity(intent);
+            }
+            else if (item.getItemId() == R.id.nav_most_viewed) {
+                //TODO --> implement
+            }
+            return true;
+        });
+
         // Set click listener for the button
         navigateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create an Intent to start SecondActivity
-                Intent intent = new Intent(MainActivity.this, RecipeListActivity.class);
-                startActivity(intent);
+
             }
         });
     }

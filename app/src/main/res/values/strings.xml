@@ -50,4 +50,7 @@
     <string name="nav_menu_home">Home</string>
     <string name="nav_menu_recipes">Recipes</string>
     <string name="nav_menu_most_viewed">Most Viewed</string>
+    <string name="main_tv_info_dishes">Avalabile dishes for your selected ingredients:</string>
+    <string name="main_tv_info_ingredients">You have selected the following ingredientes</string>
+    <string name="main_btn_add_ingredients">Add ingredients</string>
 </resources>
