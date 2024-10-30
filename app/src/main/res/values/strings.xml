@@ -43,6 +43,15 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="act_add_recipe_recipe_name">Recipe name</string>
+    <string name="act_add_recipe_recipe_description">Recipe description</string>
+    <string name="act_add_recipe_tv_ingredients">Ingredients:</string>
+    <string name="act_add_recipe_submit_btn">Submit</string>
+    <string name="act_add_recipe_add_ingredient_btn">Add ingredient</string>
+    <string name="create_recipe">Create Recipe</string>
+    <string name="recipe_title">Recipe Title</string>
+    <string name="add_recipe_form_enter_a_valid_recipe_name">Enter a valid recipe name!</string>
+    <string name="add_recipe_form_choose_at_least_one_ingredient">Choose at least one ingredient!</string>
     <string name="default_logging_string">logging</string>
     <string name="empty_string" />
 </resources>

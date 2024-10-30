@@ -1,8 +1,9 @@
 package com.example.proiect_dam_retete;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Recipe {
+public class Recipe implements Serializable {
     private String nume;
     private ArrayList<Ingredient> ingredientList;
     private String descriere;

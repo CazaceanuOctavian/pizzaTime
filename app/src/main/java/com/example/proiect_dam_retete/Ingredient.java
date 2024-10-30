@@ -2,7 +2,9 @@ package com.example.proiect_dam_retete;
 
 import androidx.annotation.NonNull;
 
-public class Ingredient {
+import java.io.Serializable;
+
+public class Ingredient implements Serializable {
     private float quantity;
     private EIngredients ingredient_name;
 
