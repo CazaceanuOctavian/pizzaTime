@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 //            return insets;
 //        });
 
+        //TODO --> move this to the navview
         Button navigateButton = findViewById(R.id.main_activity_launch_recipe_list_btn);
 
         // Set click listener for the button
