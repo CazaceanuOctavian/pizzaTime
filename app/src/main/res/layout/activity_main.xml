@@ -6,6 +6,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/cazaceanu_octavian_main_drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/cazaceanu_octavian_main_appbar_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/cazaceanu_octavian_main_toolbar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/cazaceanu_octavian_main_navview"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/oct_nav_header"
+            app:menu="@menu/oct_nav_menu"/>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
     <!-- TODO: remove this button, for testing only       -->
     <Button
         android:id="@+id/main_activity_launch_recipe_list_btn"
@@ -15,8 +51,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:textColor="@color/black"
-        android:textSize="14sp"
+        android:textSize="14dp"
         android:text="Press me"
         android:lines="1"
-        android:layout_marginBottom="30dp"></Button>
+        android:layout_marginBottom="30dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,8 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
@@ -45,4 +47,7 @@
     </string>
     <string name="default_logging_string">logging</string>
     <string name="empty_string" />
+    <string name="nav_menu_home">Home</string>
+    <string name="nav_menu_recipes">Recipes</string>
+    <string name="nav_menu_most_viewed">Most Viewed</string>
 </resources>
