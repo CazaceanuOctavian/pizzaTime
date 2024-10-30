@@ -10,25 +10,20 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
-import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class RecipeListActivity extends AppCompatActivity {
-    private static final List<Integer> currentSelectedRecipe = new ArrayList<Integer>();
+    private static final List<Integer> currentSelectedRecipe = new ArrayList<>();
 
 
 
@@ -53,13 +48,14 @@ public class RecipeListActivity extends AppCompatActivity {
             Log.d(getString(R.string.default_logging_string),recipe.toString());
         }
 
-        ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(
+        ArrayAdapter<Recipe> adapter = new ArrayAdapter<>(
                 this,
                 R.layout.recipe_item_layout,
                 recipes
         ) {
+            @NonNull
             @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
+            public View getView(int position, View convertView, @NonNull ViewGroup parent) {
                 View view = convertView;
                 if (view == null) {
                     view = LayoutInflater.from(getContext())
@@ -73,8 +69,14 @@ public class RecipeListActivity extends AppCompatActivity {
                 TextView ingredientsView = view.findViewById(R.id.recipe_activity_list_item_ingredients);
                 TextView descriptionView = view.findViewById(R.id.recipe_activity_list_item_description);
                 descriptionView.setVisibility(View.GONE);
+
+
+                descriptionView.setVisibility(
+                        currentSelectedRecipe.contains(position) ? View.VISIBLE : View.GONE
+                );
+
                 if (recipe != null) {
-                    titleView.setText(recipe.getNume());
+                    titleView.setText(recipe.getName());
 
                     StringBuilder recipeIngredients = new StringBuilder();
                     recipeIngredients.append("Ingredients: ");
@@ -82,6 +84,7 @@ public class RecipeListActivity extends AppCompatActivity {
                         recipeIngredients.append(ingredient.getIngredient_name().toString());
                     }
                     ingredientsView.setText(recipeIngredients.toString());
+                    descriptionView.setText(recipe.getDescription());
                 }
 
                 return view;
@@ -94,30 +97,30 @@ public class RecipeListActivity extends AppCompatActivity {
         listView.setOnItemClickListener((parent, view, position, id) -> {
             TextView descriptionView = view.findViewById(R.id.recipe_activity_list_item_description);
             Recipe recipe = adapter.getItem(position);
-            String currentFooter = descriptionView.getText().toString();
             Integer pos = position;
             if (currentSelectedRecipe.contains(pos)) {
                 descriptionView.setVisibility(View.GONE);
                 descriptionView.setText(R.string.empty_string);
-                currentSelectedRecipe.remove(pos);
+                currentSelectedRecipe.remove(Integer.valueOf(position));
 
             } else {
                 descriptionView.setVisibility(View.VISIBLE);
-                descriptionView.setText(recipe.getDescriere());
+                descriptionView.setText(Objects.requireNonNull(recipe).getDescription());
                 currentSelectedRecipe.add(pos);
 
             }
+            adapter.notifyDataSetChanged();
         });
-        if(!currentSelectedRecipe.isEmpty()){
-            //set all items in the static array to clicked
-           currentSelectedRecipe.forEach(clickedItemPosition ->{
-                listView.performItemClick(
-                        listView.getChildAt(clickedItemPosition),
-                        clickedItemPosition,
-                        adapter.getItemId(clickedItemPosition));
-           });
-
-        }
+//        if(!currentSelectedRecipe.isEmpty()){
+//            //set all items in the static array to clicked
+//           currentSelectedRecipe.forEach(clickedItemPosition ->{
+//                listView.performItemClick(
+//                        listView.getChildAt(clickedItemPosition),
+//                        clickedItemPosition,
+//                        adapter.getItemId(clickedItemPosition));
+//           });
+//
+//        }
         listView.setOnItemLongClickListener((parent,view, position, id) ->{
             Recipe recipe = adapter.getItem(position);
             sendRecipeToActivity(recipe,this, MainActivity.class);
@@ -132,6 +135,10 @@ public class RecipeListActivity extends AppCompatActivity {
 //                result ->{}
 //        );
         Intent intent = new Intent(sourceActivity, destinationActivity);
+        Bundle sendRecipeToMain = new Bundle();
+        //TODO:CODO refactor static string
+        sendRecipeToMain.putParcelable("selected_recipe", recipe);
+        intent.putExtra("bundle",sendRecipeToMain);
         startActivity(intent);
     }
     //TODO: Make the generator a part of the Recipe class
