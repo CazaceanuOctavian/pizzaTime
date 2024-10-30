@@ -18,10 +18,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class RecipeListActivity extends AppCompatActivity {
-    private int currentSelectedRecipe = -1;
+    private List<Integer> currentSelectedRecipe = new ArrayList<Integer>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,16 +80,16 @@ public class RecipeListActivity extends AppCompatActivity {
             TextView descriptionView = view.findViewById(R.id.recipe_activity_list_item_description);
             Recipe recipe = adapter.getItem(position);
             String currentFooter = descriptionView.getText().toString();
-
-            if (position == currentSelectedRecipe) {
+            Integer pos = position;
+            if (currentSelectedRecipe.contains(pos)) {
                 descriptionView.setVisibility(View.GONE);
                 descriptionView.setText(R.string.empty_string);
-                currentSelectedRecipe = -1;
+                currentSelectedRecipe.remove(pos);
 
             } else {
                 descriptionView.setVisibility(View.VISIBLE);
                 descriptionView.setText(recipe.getDescriere());
-                currentSelectedRecipe = position;
+                currentSelectedRecipe.add(pos);
 
             }
         });
