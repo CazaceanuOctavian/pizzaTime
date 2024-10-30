@@ -8,9 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -38,11 +41,8 @@ public class RecipeListActivity extends AppCompatActivity {
             return insets;
         });
 
-
-
         ListView listView = findViewById(R.id.recipe_list_activity_list_view);
         ArrayList<Recipe> recipes = generateRandomRecipes(10);
-
 
         for ( Recipe recipe: recipes) {
             Log.d(getString(R.string.default_logging_string),recipe.toString());
@@ -90,10 +90,7 @@ public class RecipeListActivity extends AppCompatActivity {
                 return view;
             }
         };
-
-
         listView.setAdapter(adapter);
-
         listView.setOnItemClickListener((parent, view, position, id) -> {
             TextView descriptionView = view.findViewById(R.id.recipe_activity_list_item_description);
             Recipe recipe = adapter.getItem(position);
@@ -111,20 +108,23 @@ public class RecipeListActivity extends AppCompatActivity {
             }
             adapter.notifyDataSetChanged();
         });
-//        if(!currentSelectedRecipe.isEmpty()){
-//            //set all items in the static array to clicked
-//           currentSelectedRecipe.forEach(clickedItemPosition ->{
-//                listView.performItemClick(
-//                        listView.getChildAt(clickedItemPosition),
-//                        clickedItemPosition,
-//                        adapter.getItemId(clickedItemPosition));
-//           });
-//
-//        }
         listView.setOnItemLongClickListener((parent,view, position, id) ->{
             Recipe recipe = adapter.getItem(position);
             sendRecipeToActivity(recipe,this, MainActivity.class);
             return true;
+        });
+
+        Button addNewRecipeBtn = findViewById(R.id.recipe_list_activity_add_recipe_btn);
+        addNewRecipeBtn.setOnClickListener( v -> {
+            ActivityResultLauncher<Intent> launcher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if(result.getResultCode() == RESULT_OK){
+                            Intent data = result.getData();
+                            Bundle bundle = data.getBundleExtra("new_recipe");
+                        }
+                    }
+            );
         });
     }
 
