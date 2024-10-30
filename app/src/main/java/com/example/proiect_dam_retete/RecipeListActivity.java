@@ -1,5 +1,7 @@
 package com.example.proiect_dam_retete;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
@@ -18,11 +23,14 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 public class RecipeListActivity extends AppCompatActivity {
-    private List<Integer> currentSelectedRecipe = new ArrayList<Integer>();
+    private static final List<Integer> currentSelectedRecipe = new ArrayList<Integer>();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +43,12 @@ public class RecipeListActivity extends AppCompatActivity {
             return insets;
         });
 
+
+
         ListView listView = findViewById(R.id.recipe_list_activity_list_view);
         ArrayList<Recipe> recipes = generateRandomRecipes(10);
+
+
         for ( Recipe recipe: recipes) {
             Log.d(getString(R.string.default_logging_string),recipe.toString());
         }
@@ -75,7 +87,10 @@ public class RecipeListActivity extends AppCompatActivity {
                 return view;
             }
         };
+
+
         listView.setAdapter(adapter);
+
         listView.setOnItemClickListener((parent, view, position, id) -> {
             TextView descriptionView = view.findViewById(R.id.recipe_activity_list_item_description);
             Recipe recipe = adapter.getItem(position);
@@ -93,6 +108,31 @@ public class RecipeListActivity extends AppCompatActivity {
 
             }
         });
+        if(!currentSelectedRecipe.isEmpty()){
+            //set all items in the static array to clicked
+           currentSelectedRecipe.forEach(clickedItemPosition ->{
+                listView.performItemClick(
+                        listView.getChildAt(clickedItemPosition),
+                        clickedItemPosition,
+                        adapter.getItemId(clickedItemPosition));
+           });
+
+        }
+        listView.setOnItemLongClickListener((parent,view, position, id) ->{
+            Recipe recipe = adapter.getItem(position);
+            sendRecipeToActivity(recipe,this, MainActivity.class);
+            return true;
+        });
+    }
+
+    private void sendRecipeToActivity(Recipe recipe, Activity sourceActivity, Class<? extends Activity> destinationActivity){
+        //TODO: Need more time to look at reloading activity state to decide between start and a Contract
+//        ActivityResultLauncher<Intent> activityLauncher = registerForActivityResult(
+//                new ActivityResultContracts.StartActivityForResult(),
+//                result ->{}
+//        );
+        Intent intent = new Intent(sourceActivity, destinationActivity);
+        startActivity(intent);
     }
     //TODO: Make the generator a part of the Recipe class
     //TODO: Delete generateRandomRecipes after coupling with other activities
@@ -108,14 +148,13 @@ public class RecipeListActivity extends AppCompatActivity {
         };
 
         for(int i = 0; i < count; i++) {
-            // Create random ingredients
             ArrayList<Ingredient> ingredients = new ArrayList<>();
-            ingredients.add(new Ingredient(random.nextFloat() * 5, EIngredients.TOMATO));
+            ingredients.add(new Ingredient(random.nextFloat() * 5,
+                    EIngredients.values()[new Random().nextInt(EIngredients.values().length)]));
 
-            // Create recipe with random name and description
             String name = sampleNames[random.nextInt(sampleNames.length)];
             String desc = sampleDescriptions[random.nextInt(sampleDescriptions.length)];
-            Recipe recipe = new Recipe(name, ingredients, desc, random.nextInt(100));
+            Recipe recipe = new Recipe(name, ingredients, desc, random.nextInt(100), random.nextInt(6));
 
             recipes.add(recipe);
         }
