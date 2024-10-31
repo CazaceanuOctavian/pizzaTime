@@ -17,13 +17,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="Choose the desired ingredient:"
+        android:text="Choose the desired ingredient"
         android:textSize="25dp"
         android:textColor="#333333"
         android:shadowColor="#80000000"
         android:shadowDx="2"
         android:shadowDy="2"
         android:shadowRadius="8"
+        android:gravity="center"
         />
 
     <Spinner
@@ -50,7 +51,7 @@
         app:layout_constraintBottom_toTopOf="@id/dinita_cosmina_button_Submit"
         app:layout_constraintDimensionRatio="1"
 
-        />
+        tools:ignore="NotSibling" />
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dinita_cosmina_til"
         android:layout_width="match_parent"
@@ -72,21 +73,48 @@
 
 
     </com.google.android.material.textfield.TextInputLayout>
-    <Button
-        android:id="@+id/dinita_cosmina_button_Submit"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/dinita_cosmina_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="30dp"
-        android:hint="Submit"
-        android:text="Submit"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        android:layout_margin="16dp"
-        app:cornerRadius="16dp"
-        android:backgroundTint="#6c8e5d"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="32dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
 
-        />
+        <Button
+            android:id="@+id/dinita_cosmina_button_Submit"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/dinita_cosmina_button_Add"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="Submit"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:backgroundTint="#6c8e5d"
+            app:cornerRadius="16dp" />
+
+        <Button
+            android:id="@+id/dinita_cosmina_button_Add"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@id/dinita_cosmina_button_Submit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="Add"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:backgroundTint="#6c8e5d"
+            app:cornerRadius="16dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
