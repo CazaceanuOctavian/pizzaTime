@@ -89,8 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 noIngredientTextView.setVisibility(View.GONE);
                 noIngredientImageView.setVisibility(View.GONE);
 
-                Ingredient fetchedIngredient = result.getData().getParcelableExtra("test");
-                Log.i("mainActivityTest", fetchedIngredient.toString());
+                Ingredient fetchedIngredient = result.getData().getParcelableExtra("fetchedIngredientTag");
                 addButtons(fetchedIngredient);
             }
         };

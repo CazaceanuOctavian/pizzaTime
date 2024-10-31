@@ -61,7 +61,7 @@ public class AddIngredientsForm extends AppCompatActivity {
                     EIngredients ingredientType = EIngredients.valueOf(spinner.getSelectedItem().toString());
                     float quantityText = Float.parseFloat(quantityEditText.getText().toString().trim());
                     Ingredient selectedIngredient = new Ingredient(quantityText, ingredientType);
-                    intent_submit.putParcelableArrayListExtra("test", selectedIngredient);
+                    intent_submit.putParcelableArrayListExtra("fetchedIngredientTag", selectedIngredient);
                     setResult(RESULT_OK, intent_submit);
                     finish();
                 }

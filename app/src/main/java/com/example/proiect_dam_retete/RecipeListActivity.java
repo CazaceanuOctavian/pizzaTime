@@ -27,9 +27,6 @@ import java.util.Random;
 
 public class RecipeListActivity extends AppCompatActivity {
     private static final List<Integer> currentSelectedRecipe = new ArrayList<>();
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +37,9 @@ public class RecipeListActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        //changes by Oct here
+        Intent intent_submit=getIntent();
 
         ListView listView = findViewById(R.id.recipe_list_activity_list_view);
         ArrayList<Recipe> recipes = generateRandomRecipes(10);
@@ -110,7 +110,7 @@ public class RecipeListActivity extends AppCompatActivity {
         });
         listView.setOnItemLongClickListener((parent,view, position, id) ->{
             Recipe recipe = adapter.getItem(position);
-            sendRecipeToActivity(recipe,this, MainActivity.class);
+            sendRecipeToActivity(recipe,this, MainActivity.class, intent_submit);
             return true;
         });
          ActivityResultLauncher<Intent> launcher = registerForActivityResult(
@@ -131,18 +131,20 @@ public class RecipeListActivity extends AppCompatActivity {
         });
     }
 
-    private void sendRecipeToActivity(Recipe recipe, Activity sourceActivity, Class<? extends Activity> destinationActivity){
+
+    //changes by oct here aswell
+    private void sendRecipeToActivity(Recipe recipe, Activity sourceActivity, Class<? extends Activity> destinationActivity, Intent intent){
         //TODO: Need more time to look at reloading activity state to decide between start and a Contract
 //        ActivityResultLauncher<Intent> activityLauncher = registerForActivityResult(
 //                new ActivityResultContracts.StartActivityForResult(),
 //                result ->{}
 //        );
-        Intent intent = new Intent(sourceActivity, destinationActivity);
         Bundle sendRecipeToMain = new Bundle();
         //TODO:CODO refactor static string
         sendRecipeToMain.putParcelable("selected_recipe", recipe);
         intent.putExtra("bundle",sendRecipeToMain);
-        startActivity(intent);
+        setResult(RESULT_OK, intent);
+        finish();
     }
         //TODO: Make the generator a part of the Recipe class
         //TODO: Delete generateRandomRecipes after coupling with other activities
