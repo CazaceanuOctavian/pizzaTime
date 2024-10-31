@@ -6,6 +6,8 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
@@ -54,4 +56,10 @@
     <string name="add_recipe_form_choose_at_least_one_ingredient">Choose at least one ingredient!</string>
     <string name="default_logging_string">logging</string>
     <string name="empty_string" />
+    <string name="nav_menu_home">Home</string>
+    <string name="nav_menu_recipes">Recipes</string>
+    <string name="nav_menu_most_viewed">Most Viewed</string>
+    <string name="main_tv_info_dishes">Avalabile dishes for your selected ingredients:</string>
+    <string name="main_tv_info_ingredients">You have selected the following ingredientes</string>
+    <string name="main_btn_add_ingredients">Add ingredients</string>
 </resources>
