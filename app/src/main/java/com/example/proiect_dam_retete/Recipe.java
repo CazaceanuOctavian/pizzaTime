@@ -10,6 +10,14 @@ public class Recipe implements Serializable {
     private int nrViews;
     private int rating;
 
+    public Recipe(String nume, ArrayList<Ingredient> ingredientList, String descriere, int nrViews, int rating) {
+        this.ingredientList = ingredientList;
+        this.nume = nume;
+        this.descriere = descriere;
+        this.nrViews = nrViews;
+        this.rating = rating;
+    }
+
     public Recipe(String nume, ArrayList<Ingredient> ingredientList, String descriere, int nrViews) {
         this.nume = nume;
         this.ingredientList = ingredientList;

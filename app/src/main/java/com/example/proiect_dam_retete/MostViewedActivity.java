@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -34,12 +35,14 @@ public class MostViewedActivity extends AppCompatActivity {
 //            return insets;
 //        });
 
+        Switch sortSwitch = findViewById(R.id.most_viewed_activity_sort_switch);
         ListView listView = findViewById(R.id.most_viewed_activity_list_view);
+
         ArrayList<Recipe> recipes = generateRandomRecipes(10);
 
         ArrayList<Recipe> sortedRecipesList = sortRecipesByViews(recipes);
 
-        listView.setAdapter(new ArrayAdapter<Recipe>(this, 0, sortedRecipesList){
+        ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, 0, sortedRecipesList){
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 Recipe recipe = getItem(position);
@@ -52,14 +55,31 @@ public class MostViewedActivity extends AppCompatActivity {
                 // Find TextViews and set recipe details
                 TextView nameView = convertView.findViewById(R.id.recipe_activity_list_item_title);
                 TextView descView = convertView.findViewById(R.id.recipe_activity_list_item_description);
+                TextView nrView = convertView.findViewById(R.id.recipe_activity_list_item_views);
+                TextView ratingView = convertView.findViewById(R.id.recipe_activity_list_item_rating);
 
                 if (recipe != null) {
                     nameView.setText(recipe.getNume());
-                    descView.setText(recipe.getDescriere() + "\nViews: " + recipe.getNrViews());
+                    descView.setText(recipe.getDescriere());
+                    ratingView.setText("Rating: " + recipe.getRating());
+                    nrView.setText("Views: " + recipe.getNrViews());
                 }
 
                 return convertView;
             }
+        };
+
+        listView.setAdapter(adapter);
+
+        sortSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                adapter.clear();
+                adapter.addAll(sortRecipesByRating(recipes));
+            } else {
+                adapter.clear();
+                adapter.addAll(sortRecipesByViews(recipes));
+            }
+            adapter.notifyDataSetChanged();
         });
     }
 
@@ -77,6 +97,25 @@ public class MostViewedActivity extends AppCompatActivity {
             @Override
             public int compare(Recipe r1, Recipe r2) {
                 return Integer.compare(r2.getNrViews(), r1.getNrViews()); // Descending order
+            }
+        });
+
+        return sortedRecipes;
+    }
+
+    private ArrayList<Recipe> sortRecipesByRating(ArrayList<Recipe> recipes) {
+        ArrayList<Recipe> sortedRecipes = new ArrayList<>();
+
+        for (Recipe recipe : recipes) {
+            if (recipe.getRating() > 0) {
+                sortedRecipes.add(recipe);
+            }
+        }
+
+        Collections.sort(sortedRecipes, new Comparator<Recipe>() {
+            @Override
+            public int compare(Recipe r1, Recipe r2) {
+                return Integer.compare(r2.getRating(), r1.getRating()); // Descending order
             }
         });
 
@@ -102,7 +141,7 @@ public class MostViewedActivity extends AppCompatActivity {
             // Create recipe with random name and description
             String name = sampleNames[random.nextInt(sampleNames.length)];
             String desc = sampleDescriptions[random.nextInt(sampleDescriptions.length)];
-            Recipe recipe = new Recipe(name, ingredients, desc, random.nextInt(100));
+            Recipe recipe = new Recipe(name, ingredients, desc, random.nextInt(100), random.nextInt(5)+1);
 
             recipes.add(recipe);
         }

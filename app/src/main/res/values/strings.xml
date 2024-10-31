@@ -46,4 +46,6 @@
     <string name="activity_most_viewed_most_viewed_recipes">Most viewed recipes</string>
     <string name="empty_string" />
     <string name="default_logging_string" />
+    <string name="most_viewed_activity_sorted_by_views">Sorted by Views</string>
+    <string name="most_viewed_activity_sorted_by_rating">Sorted by Rating</string>
 </resources>
