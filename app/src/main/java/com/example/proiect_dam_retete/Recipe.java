@@ -8,6 +8,7 @@ public class Recipe implements Serializable {
     private ArrayList<Ingredient> ingredientList;
     private String descriere;
     private int nrViews;
+    private int rating;
 
     public Recipe(String nume, ArrayList<Ingredient> ingredientList, String descriere, int nrViews) {
         this.nume = nume;
@@ -53,6 +54,14 @@ public class Recipe implements Serializable {
 
     public void setNrViews(int nrViews) {
         this.nrViews = nrViews;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     @Override
