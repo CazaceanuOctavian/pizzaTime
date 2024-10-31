@@ -36,7 +36,7 @@ public class RecipeListActivity extends AppCompatActivity {
         });
 
         ListView listView = findViewById(R.id.recipe_list_activity_list_view);
-        ArrayList<Recipe> recipes = generateRandomRecipes(10);
+       ArrayList<Recipe> recipes = generateRandomRecipes(10);
         for ( Recipe recipe: recipes) {
             Log.d(getString(R.string.default_logging_string),recipe.toString());
         }
@@ -94,8 +94,8 @@ public class RecipeListActivity extends AppCompatActivity {
             }
         });
     }
-    //TODO: Make the generator a part of the Recipe class
-    //TODO: Delete generateRandomRecipes after coupling with other activities
+        //TODO: Make the generator a part of the Recipe class
+        //TODO: Delete generateRandomRecipes after coupling with other activities
     private ArrayList<Recipe> generateRandomRecipes(int count) {
         ArrayList<Recipe> recipes = new ArrayList<>();
         Random random = new Random();
@@ -120,5 +120,6 @@ public class RecipeListActivity extends AppCompatActivity {
             recipes.add(recipe);
         }
         return recipes;
+
     }
 }
