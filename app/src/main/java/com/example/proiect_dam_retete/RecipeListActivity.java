@@ -141,8 +141,8 @@ public class RecipeListActivity extends AppCompatActivity {
         intent.putExtra("bundle",sendRecipeToMain);
         startActivity(intent);
     }
-    //TODO: Make the generator a part of the Recipe class
-    //TODO: Delete generateRandomRecipes after coupling with other activities
+        //TODO: Make the generator a part of the Recipe class
+        //TODO: Delete generateRandomRecipes after coupling with other activities
     private ArrayList<Recipe> generateRandomRecipes(int count) {
         ArrayList<Recipe> recipes = new ArrayList<>();
         Random random = new Random();

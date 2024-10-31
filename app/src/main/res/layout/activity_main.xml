@@ -6,17 +6,94 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-    <!-- TODO: remove this button, for testing only       -->
-    <Button
-        android:id="@+id/main_activity_launch_recipe_list_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/cazaceanu_octavian_main_drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:text="Press me"
-        android:lines="1"
-        android:layout_marginBottom="30dp"></Button>
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/cazaceanu_octavian_main_appbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/cazaceanu_octavian_main_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:weightSum="2"
+                app:layout_constraintTop_toBottomOf="@id/cazaceanu_octavian_main_appbar_layout"
+                app:layout_constraintBottom_toTopOf="@id/main_activity_launch_recipe_list_btn"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:id="@+id/cazaceanu_octavian_main_info_tv_dishes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/main_tv_info_dishes"
+                    android:layout_marginBottom="10dp"/>
+
+                <ListView
+                    android:id="@+id/cazaceanu_octavian_main_available_dishes_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/cazaceanu_octavian_main_info_tv_ingredients"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/main_tv_info_ingredients"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"/>
+
+                <ListView
+                    android:id="@+id/cazaceanu_octavian_main_selected_ingredients_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/main_activity_launch_recipe_list_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:lines="1"
+                android:text="@string/main_btn_add_ingredients"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/cazaceanu_octavian_main_navview"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/oct_nav_header"
+            app:menu="@menu/oct_nav_menu" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
