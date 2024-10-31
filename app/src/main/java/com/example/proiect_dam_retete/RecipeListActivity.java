@@ -110,7 +110,7 @@ public class RecipeListActivity extends AppCompatActivity {
         for(int i = 0; i < count; i++) {
             // Create random ingredients
             ArrayList<Ingredient> ingredients = new ArrayList<>();
-            ingredients.add(new Ingredient(random.nextFloat() * 5, EIngredients.TOMATO));
+            ingredients.add(new Ingredient(random.nextFloat() * 5, EIngredients.BLACK_PEPPER));
 
             // Create recipe with random name and description
             String name = sampleNames[random.nextInt(sampleNames.length)];
