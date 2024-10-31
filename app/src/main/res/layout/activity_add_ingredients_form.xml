@@ -37,7 +37,20 @@
         app:layout_constraintStart_toStartOf="parent"
 
         app:layout_constraintTop_toBottomOf="@id/dinita_cosmina_text_view_choose" />
+    <ImageView
+        android:id="@+id/dinita_cosmina_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/img2_cosmina"
+        app:layout_constraintTop_toBottomOf="@id/dinita_cosmina_til"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/dinita_cosmina_button_Submit"
+        app:layout_constraintDimensionRatio="1"
 
+        />
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dinita_cosmina_til"
         android:layout_width="match_parent"
@@ -48,6 +61,8 @@
         android:layout_margin="8dp"
         android:layout_marginTop="16dp">
 
+
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/dinita_cosmina_tiet"
             android:layout_width="match_parent"
@@ -55,7 +70,8 @@
             android:hint="Quantity"
             />
 
-</com.google.android.material.textfield.TextInputLayout>
+
+    </com.google.android.material.textfield.TextInputLayout>
     <Button
         android:id="@+id/dinita_cosmina_button_Submit"
         android:layout_width="200dp"
@@ -70,6 +86,7 @@
         android:textSize="16sp"
         android:layout_margin="16dp"
         app:cornerRadius="16dp"
+        android:backgroundTint="#6c8e5d"
 
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
