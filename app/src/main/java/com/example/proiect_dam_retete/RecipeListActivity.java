@@ -113,18 +113,21 @@ public class RecipeListActivity extends AppCompatActivity {
             sendRecipeToActivity(recipe,this, MainActivity.class);
             return true;
         });
+         ActivityResultLauncher<Intent> launcher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if(result.getResultCode() == RESULT_OK){
+                        Intent data = result.getData();
+                        Bundle bundle = data.getBundleExtra("new_recipe");
+                    }
+                }
+        );
 
         Button addNewRecipeBtn = findViewById(R.id.recipe_list_activity_add_recipe_btn);
         addNewRecipeBtn.setOnClickListener( v -> {
-            ActivityResultLauncher<Intent> launcher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                    result -> {
-                        if(result.getResultCode() == RESULT_OK){
-                            Intent data = result.getData();
-                            Bundle bundle = data.getBundleExtra("new_recipe");
-                        }
-                    }
-            );
+
+            Intent intent = new Intent(this.getBaseContext(), AddRecipeFormActivity.class);
+            launcher.launch(intent);
         });
     }
 
