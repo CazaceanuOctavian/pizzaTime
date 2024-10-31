@@ -1,8 +1,12 @@
 package com.example.proiect_dam_retete;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,8 +14,17 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 public class AddIngredientsForm extends AppCompatActivity {
     private Spinner spinner;
+    private TextInputEditText quantityEditText;
+    private Button btn_add;
+    private Button btn_submit;
+
+    private Intent intent_submit;
+    private Intent intent_add;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +36,8 @@ public class AddIngredientsForm extends AppCompatActivity {
             return insets;
         });
 
+        quantityEditText = findViewById(R.id.dinita_cosmina_tiet);
+
         spinner=findViewById(R.id.dinita_cosmina_spinner);
         EIngredients[] ingredients = EIngredients.values();
         String[] ingredientNames = new String[ingredients.length];
@@ -33,5 +48,39 @@ public class AddIngredientsForm extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ingredientNames);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+        btn_submit=findViewById(R.id.dinita_cosmina_button_Submit);
+        btn_add=findViewById(R.id.dinita_cosmina_button_Add);
+        intent_submit=getIntent();
+
+
+        btn_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isValid()) {
+                    //TODO --> parcurge enul-ul ca sa poti sa creezi ingredientul
+//                    Ingredient selectedIngredient = new Ingredient(spinner.getSelectedItem().toString(), Float.parseFloat(quantityEditText.getText().toString().trim()))
+                    intent_submit.putExtra("test", new Ingredient(15, EIngredients.BACON));
+                    setResult(RESULT_OK, intent_submit);
+                    finish();
+                }
+            }
+        });
     }
+
+    private boolean isValid() {
+        if (quantityEditText.getText().toString().trim().length() == 0) {
+            Toast.makeText(getApplicationContext(), "Please introduce a valid quntity", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        try {
+            Float.parseFloat(quantityEditText.getText().toString().trim());
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Invalid quantity", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }
+
 }

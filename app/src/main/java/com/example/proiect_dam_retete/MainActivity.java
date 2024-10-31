@@ -2,10 +2,15 @@ package com.example.proiect_dam_retete;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,12 +24,18 @@ public class MainActivity extends AppCompatActivity {
     NavigationView mainNav;
     Toolbar mainToolbar;
     DrawerLayout mainDrawerLayout;
+    private ActivityResultLauncher<Intent> launcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+        launcher = registerForActivityResult(
+          new ActivityResultContracts.StartActivityForResult(),
+            getCallback()
+        );
 
         //TODO --> move this to the navview
         Button navigateButton = findViewById(R.id.main_activity_launch_recipe_list_btn);
@@ -56,8 +67,23 @@ public class MainActivity extends AppCompatActivity {
         navigateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent getIngredientIntent = new Intent(getApplicationContext(), AddIngredientsForm.class);
+                launcher.launch(getIngredientIntent);
             }
         });
     }
+
+    private ActivityResultCallback<ActivityResult> getCallback() {
+        return new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if (result.getResultCode()==RESULT_OK && result.getData()!=null) {
+                    Ingredient test = (Ingredient) result.getData().getSerializableExtra("test");
+                    Log.i("mainActivityTest", test.toString());
+                }
+            }
+        };
+    }
+
+
 }
