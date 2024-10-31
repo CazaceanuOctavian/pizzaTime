@@ -52,4 +52,6 @@
     <string name="recipe_title">Recipe Title</string>
     <string name="add_recipe_form_enter_a_valid_recipe_name">Enter a valid recipe name!</string>
     <string name="add_recipe_form_choose_at_least_one_ingredient">Choose at least one ingredient!</string>
+    <string name="empty_string">pizza\n</string>
+    <string name="default_logging_string">other string\n</string>
 </resources>

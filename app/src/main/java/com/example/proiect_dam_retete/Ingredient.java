@@ -13,12 +13,6 @@ public class Ingredient implements Serializable {
         this.ingredient_name = ingredient_name;
     }
 
-    @NonNull
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
     public float getQuantity() {
         return quantity;
     }
@@ -33,5 +27,9 @@ public class Ingredient implements Serializable {
 
     public void setIngredient_name(EIngredients ingredient_name) {
         this.ingredient_name = ingredient_name;
+    }
+
+    public String displayIngredient() {
+        return ingredient_name + " " + quantity + "g, ";
     }
 }
