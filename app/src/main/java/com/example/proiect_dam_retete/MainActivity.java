@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onActivityResult(ActivityResult result) {
                 if (result.getResultCode()==RESULT_OK && result.getData()!=null) {
-                    Ingredient test = (Ingredient) result.getData().getSerializableExtra("test");
+                    Ingredient test = (Ingredient) result.getData().getParcelableExtra("test");
                     Log.i("mainActivityTest", test.toString());
                 }
             }

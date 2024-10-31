@@ -6,8 +6,9 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
-public class Ingredient implements Parcelable {
+public class Ingredient extends ArrayList<Parcelable> implements Parcelable, Serializable {
     private float quantity;
     private EIngredients ingredient_name;
 
@@ -61,5 +62,13 @@ public class Ingredient implements Parcelable {
 
     public String displayIngredient() {
         return ingredient_name + " " + quantity + "g, ";
+    }
+
+    @Override
+    public String toString() {
+        return "Ingredient{" +
+                "quantity=" + quantity +
+                ", ingredient_name=" + ingredient_name +
+                '}';
     }
 }

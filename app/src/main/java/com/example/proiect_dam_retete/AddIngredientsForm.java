@@ -58,9 +58,10 @@ public class AddIngredientsForm extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isValid()) {
-                    //TODO --> parcurge enul-ul ca sa poti sa creezi ingredientul
-//                    Ingredient selectedIngredient = new Ingredient(spinner.getSelectedItem().toString(), Float.parseFloat(quantityEditText.getText().toString().trim()))
-                    intent_submit.putExtra("test", new Ingredient(15, EIngredients.BACON));
+                    EIngredients ingredientType = EIngredients.valueOf(spinner.getSelectedItem().toString());
+                    float quantityText = Float.parseFloat(quantityEditText.getText().toString().trim());
+                    Ingredient selectedIngredient = new Ingredient(quantityText, ingredientType);
+                    intent_submit.putParcelableArrayListExtra("test", selectedIngredient);
                     setResult(RESULT_OK, intent_submit);
                     finish();
                 }
@@ -69,18 +70,24 @@ public class AddIngredientsForm extends AppCompatActivity {
     }
 
     private boolean isValid() {
-        if (quantityEditText.getText().toString().trim().length() == 0) {
-            Toast.makeText(getApplicationContext(), "Please introduce a valid quntity", Toast.LENGTH_SHORT).show();
+        if (quantityEditText == null || quantityEditText.getText() == null) {
+            Toast.makeText(getApplicationContext(), "System error: form not properly initialized", Toast.LENGTH_SHORT).show();
             return false;
         }
+
+        String quantityText = quantityEditText.getText().toString().trim();
+        if (quantityText.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Please introduce a valid quantity", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
         try {
-            Float.parseFloat(quantityEditText.getText().toString().trim());
-        } catch (Exception e) {
+            Float.parseFloat(quantityText);
+        } catch (NumberFormatException e) {
             Toast.makeText(getApplicationContext(), "Invalid quantity", Toast.LENGTH_SHORT).show();
             return false;
         }
 
         return true;
     }
-
 }
