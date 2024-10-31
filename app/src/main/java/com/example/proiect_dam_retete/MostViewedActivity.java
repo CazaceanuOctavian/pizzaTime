@@ -102,8 +102,7 @@ public class MostViewedActivity extends AppCompatActivity {
             // Create recipe with random name and description
             String name = sampleNames[random.nextInt(sampleNames.length)];
             String desc = sampleDescriptions[random.nextInt(sampleDescriptions.length)];
-            int views = random.nextInt(100);
-            Recipe recipe = new Recipe(name, ingredients, desc, views);
+            Recipe recipe = new Recipe(name, ingredients, desc, random.nextInt(100));
 
             recipes.add(recipe);
         }
