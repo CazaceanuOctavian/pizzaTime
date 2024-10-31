@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="most_viewed_activity_sorted_by_views">Sort by views</string>
+    <string name="most_viewed_activity_sorted_by_rating">Sort by rating</string>
+    <string name="activity_most_viewed_most_viewed_recipes">Most viewed recipes</string>
+</resources>

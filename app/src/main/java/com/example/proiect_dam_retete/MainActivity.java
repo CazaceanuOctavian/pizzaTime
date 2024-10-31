@@ -70,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
             else if (item.getItemId() == R.id.nav_most_viewed) {
-                // TODO: Implement most viewed functionality
+                Intent intent = new Intent(MainActivity.this, MostViewedActivity.class);
+                startActivity(intent);
             }
             return true;
         });
