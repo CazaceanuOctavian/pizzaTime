@@ -1,33 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/cazaceanu_octavian_main_drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
+            android:layout_height="match_parent">
 
-    </com.google.android.material.appbar.AppBarLayout>
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/cazaceanu_octavian_main_appbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent">
 
-    <include layout="@layout/content_main" />
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/cazaceanu_octavian_main_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+            </com.google.android.material.appbar.AppBarLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="16dp"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:weightSum="2"
+                app:layout_constraintTop_toBottomOf="@id/cazaceanu_octavian_main_appbar_layout"
+                app:layout_constraintBottom_toTopOf="@id/main_activity_launch_recipe_list_btn"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="15dp">
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+                <TextView
+                    android:id="@+id/cazaceanu_octavian_main_info_tv_dishes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/main_tv_info_dishes"
+                    android:layout_marginBottom="10dp"/>
+
+                <ListView
+                    android:id="@+id/cazaceanu_octavian_main_available_dishes_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/cazaceanu_octavian_main_info_tv_ingredients"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/main_tv_info_ingredients"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"/>
+
+                <ListView
+                    android:id="@+id/cazaceanu_octavian_main_selected_ingredients_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/main_activity_launch_recipe_list_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:lines="1"
+                android:text="@string/main_btn_add_ingredients"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/cazaceanu_octavian_main_navview"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/oct_nav_header"
+            app:menu="@menu/oct_nav_menu" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
