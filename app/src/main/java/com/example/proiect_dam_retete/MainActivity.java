@@ -27,7 +27,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private static ArrayList<Recipe> inputedRecipes;
+    private static ArrayList<Ingredient> inputedIngredients = new ArrayList<Ingredient>();
 
     private NavigationView mainNav;
     private Toolbar mainToolbar;
@@ -71,10 +71,12 @@ public class MainActivity extends AppCompatActivity {
         // Setup navigation listener
         mainNav.setNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.nav_recipes) {
+                reinitializeIngredientViews();
                 Intent intent = new Intent(MainActivity.this, RecipeListActivity.class);
                 launcher.launch(intent);
             }
             else if (item.getItemId() == R.id.nav_most_viewed) {
+                reinitializeIngredientViews();
                 Intent intent = new Intent(MainActivity.this, MostViewedActivity.class);
                 launcher.launch(intent);
             }
@@ -83,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Setup navigate button listener
         navigateButton.setOnClickListener(v -> {
+            reinitializeIngredientViews();
             Intent getIngredientIntent = new Intent(getApplicationContext(), AddIngredientsForm.class);
             launcher.launch(getIngredientIntent);
         });
@@ -99,11 +102,25 @@ public class MainActivity extends AppCompatActivity {
                 if(String.valueOf(activityRouter).equals("RecipeListActivity")) {
                     Bundle fetchedRecipeBundle = result.getData().getParcelableExtra("fetchedRecipeBundle");
                     Recipe fetchedRecipe = fetchedRecipeBundle.getParcelable("fetchedRecipe");
+
+                    //hide the current ingredients and replace them with the needed ingredients for the selected recipe
+                    for(int i=0; i<buttonContainer.getChildCount(); i++) {
+                        View child = buttonContainer.getChildAt(i);
+                        child.setVisibility(View.GONE);
+                    }
+
+                    for(int i=0; i<fetchedRecipe.getIngredientList().size(); i++) {
+                        addIngredientButton(fetchedRecipe.getIngredientList().get(i), false);
+                    }
+
                     setRecipeButton(fetchedRecipe);
                     Log.i("mainActivityRecipe", fetchedRecipe.toString());
                 } else if (String.valueOf(activityRouter).equals("addIngredientsFrom")) {
-                    Ingredient fetchedIngredient = result.getData().getParcelableExtra("fetchedIngredientTag");
-                    addIngredientButton(fetchedIngredient);
+                    Bundle ingredientBundle = result.getData().getParcelableExtra("fetchedIngredientTag");
+                    Ingredient fetchedIngredient = ingredientBundle.getParcelable("ingredient");
+
+                    inputedIngredients.add(fetchedIngredient);
+                    addIngredientButton(fetchedIngredient, true);
                     Log.i("mainActivityIngredient", fetchedIngredient.toString());
                 }
             }
@@ -125,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         recipeButtonContainer.addView(button);
     }
 
-    private void addIngredientButton(Ingredient fetchedIngredient) {
+    private void addIngredientButton(Ingredient fetchedIngredient, boolean isPure) {
         Button button = new Button(this);
 
         // Set button properties
@@ -137,6 +154,8 @@ public class MainActivity extends AppCompatActivity {
         button.setLayoutParams(params);
 
         //nu ma judecati pentru acel \n va rog
+        if (isPure)
+            button.setTag("pure");
         button.setText(fetchedIngredient.getIngredient_name().toString() + '\n' + String.valueOf(fetchedIngredient.getQuantity()));
         button.setPadding(dpToPx(16), dpToPx(12), dpToPx(16), dpToPx(12)); // Increased padding
         button.setBackground(getResources().getDrawable(R.drawable.main_activity_button_styles, getTheme()));
@@ -150,5 +169,17 @@ public class MainActivity extends AppCompatActivity {
     private int dpToPx(int dp) {
         float density = getResources().getDisplayMetrics().density;
         return Math.round(dp * density);
+    }
+
+    void reinitializeIngredientViews() {
+        for(int i=0; i<this.buttonContainer.getChildCount(); i++) {
+            View currentView = this.buttonContainer.getChildAt(i);
+            if(currentView.getTag() != null && currentView.getTag().toString().equals("pure")) {
+                currentView.setVisibility(View.VISIBLE);
+            }
+            else {
+                currentView.setVisibility(View.GONE);
+            }
+        }
     }
 }

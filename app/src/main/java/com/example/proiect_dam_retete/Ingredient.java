@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Ingredient extends ArrayList<Parcelable> implements Parcelable, Serializable {
+public class Ingredient implements Parcelable {
     private float quantity;
     private EIngredients ingredient_name;
 

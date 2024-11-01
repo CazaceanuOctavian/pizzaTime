@@ -62,14 +62,12 @@ public class RecipeListActivity extends AppCompatActivity {
                             .inflate(R.layout.recipe_item_layout, parent, false);
                 }
 
-
                 Recipe recipe = getItem(position);
 
                 TextView titleView = view.findViewById(R.id.recipe_activity_list_item_title);
                 TextView ingredientsView = view.findViewById(R.id.recipe_activity_list_item_ingredients);
                 TextView descriptionView = view.findViewById(R.id.recipe_activity_list_item_description);
                 descriptionView.setVisibility(View.GONE);
-
 
                 descriptionView.setVisibility(
                         currentSelectedRecipe.contains(position) ? View.VISIBLE : View.GONE
@@ -81,7 +79,7 @@ public class RecipeListActivity extends AppCompatActivity {
                     StringBuilder recipeIngredients = new StringBuilder();
                     recipeIngredients.append("Ingredients: ");
                     for (Ingredient ingredient : recipe.getIngredientList()) {
-                        recipeIngredients.append(ingredient.getIngredient_name().toString());
+                        recipeIngredients.append(ingredient.getIngredient_name().toString() + "\n");
                     }
                     ingredientsView.setText(recipeIngredients.toString());
                     descriptionView.setText(recipe.getDescription());
@@ -162,8 +160,10 @@ public class RecipeListActivity extends AppCompatActivity {
 
         for(int i = 0; i < count; i++) {
             ArrayList<Ingredient> ingredients = new ArrayList<>();
-            ingredients.add(new Ingredient(random.nextFloat() * 5,
-                    EIngredients.values()[new Random().nextInt(EIngredients.values().length)]));
+            for (int j = 0; j < 5; j++) {
+                ingredients.add(new Ingredient(random.nextFloat() * 5,
+                        EIngredients.values()[new Random().nextInt(EIngredients.values().length)]));
+            }
 
             String name = sampleNames[random.nextInt(sampleNames.length)];
             String desc = sampleDescriptions[random.nextInt(sampleDescriptions.length)];
