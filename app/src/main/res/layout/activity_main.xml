@@ -29,61 +29,87 @@
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/cazaceanu_octavian_main_toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
+                    android:layout_height="match_parent"
                     android:background="?attr/colorPrimary"
                     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
             </com.google.android.material.appbar.AppBarLayout>
 
+            <TextView
+                android:id="@+id/cazaceanu_octavian_tv_no_ingredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/no_ingredients_string"
+                app:layout_constraintBottom_toTopOf="@id/cazaceanu_octavian_no_food_icon"
+                app:layout_constraintTop_toBottomOf="@+id/cazaceanu_octavian_main_appbar_layout"
+                app:layout_constraintVertical_bias="0.94" />
+
+            <ImageView
+                android:id="@+id/cazaceanu_octavian_no_food_icon"
+                app:layout_constraintTop_toBottomOf="@id/cazaceanu_octavian_main_appbar_layout"
+                app:layout_constraintBottom_toTopOf="@+id/cazaceanu_octavian_main_add_buttons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_no_food_24"/>
+
             <LinearLayout
+                android:id="@+id/cazaceanu_octavian_buttonContainer_recipe"
+                app:layout_constraintBottom_toTopOf="@id/cazaceanu_octavian_horizontalScrollView"
+                app:layout_constraintTop_toBottomOf="@id/cazaceanu_octavian_main_appbar_layout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:orientation="vertical"
-                android:weightSum="2"
+                android:orientation="horizontal" />
+
+            <HorizontalScrollView
+                android:id="@+id/cazaceanu_octavian_horizontalScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintBottom_toTopOf="@id/cazaceanu_octavian_main_add_buttons"
                 app:layout_constraintTop_toBottomOf="@id/cazaceanu_octavian_main_appbar_layout"
-                app:layout_constraintBottom_toTopOf="@id/main_activity_launch_recipe_list_btn"
-                android:layout_marginBottom="30dp"
-                android:layout_marginTop="15dp">
+                app:layout_constraintVertical_bias="0.9">
 
-                <TextView
-                    android:id="@+id/cazaceanu_octavian_main_info_tv_dishes"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:id="@+id/cazaceanu_octavian_buttonContainer"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/main_tv_info_dishes"
-                    android:layout_marginBottom="10dp"/>
+                    android:orientation="horizontal" />
 
-                <ListView
-                    android:id="@+id/cazaceanu_octavian_main_available_dishes_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
+            </HorizontalScrollView>
 
-                <TextView
-                    android:id="@+id/cazaceanu_octavian_main_info_tv_ingredients"
-                    android:layout_width="match_parent"
+            <LinearLayout
+                android:id="@+id/cazaceanu_octavian_main_add_buttons"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/main_activity_launch_recipe_list_btn"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/main_tv_info_ingredients"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"/>
+                    android:layout_marginBottom="80dp"
+                    android:lines="1"
+                    android:text="@string/main_btn_add_ingredients"
+                    android:textColor="@color/black"
+                    android:layout_weight="1"/>
 
-                <ListView
-                    android:id="@+id/cazaceanu_octavian_main_selected_ingredients_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
+                <Button
+                    android:id="@+id/cazaceanu_octavian_add_recipe_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="80dp"
+                    android:lines="1"
+                    android:text="@string/add_recipes"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="50dp"
+                    android:layout_weight="1"/>
 
             </LinearLayout>
-
-            <Button
-                android:id="@+id/main_activity_launch_recipe_list_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
-                android:lines="1"
-                android:text="@string/main_btn_add_ingredients"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

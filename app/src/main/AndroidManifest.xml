@@ -29,6 +29,9 @@
             android:name=".RecipeListActivity"
             android:exported="false" />
         <activity
+            android:name=".MostViewedActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddRecipeFormActivity"
             android:exported="false" />
     </application>

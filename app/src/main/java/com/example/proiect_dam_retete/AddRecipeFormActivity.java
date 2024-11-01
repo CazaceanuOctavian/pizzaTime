@@ -20,6 +20,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.nio.BufferUnderflowException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,22 +32,27 @@ public class AddRecipeFormActivity extends AppCompatActivity {
     private Button add_recipe_submit_btn;
     private Button add_recipe_add_ingredient_btn;
     private TextView ingredients_list_text_view;
-    private ArrayList<Ingredient> ingredients_list=new ArrayList<>();
+    private static ArrayList<Ingredient> ingredients_list=new ArrayList<>();
     private ActivityResultLauncher<Intent> launcher;
+
+    private Intent submitIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_recipe_form);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-        initialization();
-        launcher=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),getAddIngredientCallback());
+//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+//            return insets;
+//        });
+        submitIntent = getIntent();
 
+        initialization();
+        launcher=registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                getAddIngredientCallback());
     }
 
     private ActivityResultCallback<ActivityResult> getAddIngredientCallback()
@@ -55,8 +61,10 @@ public class AddRecipeFormActivity extends AppCompatActivity {
             @Override
             public void onActivityResult(ActivityResult result) {
                 if(result.getResultCode()==RESULT_OK && result.getData()!=null) {
-//                    Ingredient ingredient =(Ingredient)result.getData().getSerializableExtra(AddIngredientsForm.INGREDIENT_KEY);
-//                    ingredients_list.add(ingredient);
+                    Bundle ingredientBundle = result.getData().getParcelableExtra("fetchedIngredientTag");
+                    Ingredient fetchedIngredient = ingredientBundle.getParcelable("ingredient");
+
+                    ingredients_list.add(fetchedIngredient);
                     StringBuilder ingredients=new StringBuilder();
                     for(Ingredient i : ingredients_list)
                     {
@@ -70,6 +78,7 @@ public class AddRecipeFormActivity extends AppCompatActivity {
             }
         };
     }
+
     private void initialization()
     {
         add_recipe_name=findViewById(R.id.dulica_georgiana_denisa_recipe_name);
@@ -81,9 +90,8 @@ public class AddRecipeFormActivity extends AppCompatActivity {
         add_recipe_add_ingredient_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Decomment lines after addIngredientActivity is made
-//                Intent intent=new Intent(getApplicationContext(),AddIngredientsForm.class);
-//                launcher.launch(intent);
+                Intent intent=new Intent(getApplicationContext(), AddIngredientsForm.class);
+                launcher.launch(intent);
             }
         });
 
@@ -94,11 +102,13 @@ public class AddRecipeFormActivity extends AppCompatActivity {
                 {
                     String recipe_name=add_recipe_name.getText().toString();
                     String recipe_description=add_recipe_description.getText().toString();
-                    Recipe recipe=new Recipe(recipe_name,ingredients_list,recipe_description);
+                    Recipe recipe=new Recipe(recipe_name, ingredients_list, recipe_description);
 
-                    Intent intent=new Intent();
-                    intent.putExtra(RECIPE_KEY, recipe);
-                    setResult(RESULT_OK,intent);
+                    Bundle sendBundle = new Bundle();
+                    sendBundle.putParcelable("recipe", recipe);
+                    submitIntent.putExtra("fetchedRecipeTag", sendBundle);
+                    submitIntent.putExtra("activityOrigin", "addRecipeFrom");
+                    setResult(RESULT_OK,submitIntent);
                     finish();
                 }
             }

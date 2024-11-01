@@ -63,13 +63,12 @@
         android:layout_marginTop="16dp">
 
 
-
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/dinita_cosmina_tiet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Quantity"
-            />
+            android:inputType="numberDecimal"/>
 
 
     </com.google.android.material.textfield.TextInputLayout>

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--suppress ALL -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -80,8 +81,8 @@
         app:layout_constraintTop_toBottomOf="@+id/dulica_georgiana_denisa_tv"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="8dp"
-        android:textAlignment="center"
-        android:text="No ingredients have been added yet!">
+        >
+
     </TextView>
 
     <com.google.android.material.textfield.TextInputLayout
