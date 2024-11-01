@@ -44,8 +44,7 @@ public class RecipeListActivity extends AppCompatActivity {
         ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(
                 this,
                 R.layout.recipe_item_layout,
-                recipes
-        ) {
+                recipes) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = convertView;
