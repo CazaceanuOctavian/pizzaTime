@@ -24,12 +24,16 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
+    private static ArrayList<Recipe> inputedRecipes;
 
     private NavigationView mainNav;
     private Toolbar mainToolbar;
     private DrawerLayout mainDrawerLayout;
     private ActivityResultLauncher<Intent> launcher;
+    private LinearLayout recipeButtonContainer;
     private LinearLayout buttonContainer;
     private TextView noIngredientTextView;
     private ImageView noIngredientImageView;
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         // Initialize views
         this.noIngredientTextView = findViewById(R.id.cazaceanu_octavian_tv_no_ingredients);
         this.noIngredientImageView = findViewById(R.id.cazaceanu_octavian_no_food_icon);
+        this.recipeButtonContainer = findViewById(R.id.cazaceanu_octavian_buttonContainer_recipe);
         this.buttonContainer = findViewById(R.id.cazaceanu_octavian_buttonContainer);
         this.mainNav = findViewById(R.id.cazaceanu_octavian_main_navview);
         this.mainToolbar = findViewById(R.id.cazaceanu_octavian_main_toolbar);
@@ -94,17 +99,33 @@ public class MainActivity extends AppCompatActivity {
                 if(String.valueOf(activityRouter).equals("RecipeListActivity")) {
                     Bundle fetchedRecipeBundle = result.getData().getParcelableExtra("fetchedRecipeBundle");
                     Recipe fetchedRecipe = fetchedRecipeBundle.getParcelable("fetchedRecipe");
+                    setRecipeButton(fetchedRecipe);
                     Log.i("mainActivityRecipe", fetchedRecipe.toString());
                 } else if (String.valueOf(activityRouter).equals("addIngredientsFrom")) {
                     Ingredient fetchedIngredient = result.getData().getParcelableExtra("fetchedIngredientTag");
-                    addButtons(fetchedIngredient);
+                    addIngredientButton(fetchedIngredient);
                     Log.i("mainActivityIngredient", fetchedIngredient.toString());
                 }
             }
         };
     }
 
-    private void addButtons(Ingredient fetchedIngredient) {
+    private void setRecipeButton(Recipe recipe) {
+        Button button = new Button(this);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,  // Width matches parent
+                LinearLayout.LayoutParams.MATCH_PARENT   // Height matches parent
+        );
+
+        params.setMargins(dpToPx(16), dpToPx(8), dpToPx(16), dpToPx(8));
+        button.setText(recipe.toString());
+        button.setLayoutParams(params);
+
+        recipeButtonContainer.addView(button);
+    }
+
+    private void addIngredientButton(Ingredient fetchedIngredient) {
         Button button = new Button(this);
 
         // Set button properties
