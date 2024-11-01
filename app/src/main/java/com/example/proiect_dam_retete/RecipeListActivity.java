@@ -132,7 +132,7 @@ public class RecipeListActivity extends AppCompatActivity {
     }
 
 
-    //changes by oct here aswell
+    //CHANGES BY OCT HERE
     private void sendRecipeToActivity(Recipe recipe, Activity sourceActivity, Class<? extends Activity> destinationActivity, Intent intent){
         //TODO: Need more time to look at reloading activity state to decide between start and a Contract
 //        ActivityResultLauncher<Intent> activityLauncher = registerForActivityResult(
@@ -141,8 +141,9 @@ public class RecipeListActivity extends AppCompatActivity {
 //        );
         Bundle sendRecipeToMain = new Bundle();
         //TODO:CODO refactor static string
-        sendRecipeToMain.putParcelable("selected_recipe", recipe);
-        intent.putExtra("bundle",sendRecipeToMain);
+        sendRecipeToMain.putParcelable("fetchedRecipe", recipe);
+        intent.putExtra("fetchedRecipeBundle",sendRecipeToMain);
+        intent.putExtra("activityOrigin", "RecipeListActivity");
         setResult(RESULT_OK, intent);
         finish();
     }

@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.function.IntFunction;
 
 public class Recipe implements Parcelable {
     private String name;
@@ -120,5 +121,4 @@ public class Recipe implements Parcelable {
                 ", nrViews=" + nrViews +
                 '}';
     }
-
 }

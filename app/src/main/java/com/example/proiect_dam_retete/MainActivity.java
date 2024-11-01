@@ -67,11 +67,11 @@ public class MainActivity extends AppCompatActivity {
         mainNav.setNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.nav_recipes) {
                 Intent intent = new Intent(MainActivity.this, RecipeListActivity.class);
-                startActivity(intent);
+                launcher.launch(intent);
             }
             else if (item.getItemId() == R.id.nav_most_viewed) {
                 Intent intent = new Intent(MainActivity.this, MostViewedActivity.class);
-                startActivity(intent);
+                launcher.launch(intent);
             }
             return true;
         });
@@ -90,8 +90,16 @@ public class MainActivity extends AppCompatActivity {
                 noIngredientTextView.setVisibility(View.GONE);
                 noIngredientImageView.setVisibility(View.GONE);
 
-                Ingredient fetchedIngredient = result.getData().getParcelableExtra("fetchedIngredientTag");
-                addButtons(fetchedIngredient);
+                String activityRouter = result.getData().getStringExtra("activityOrigin");
+                if(String.valueOf(activityRouter).equals("RecipeListActivity")) {
+                    Bundle fetchedRecipeBundle = result.getData().getParcelableExtra("fetchedRecipeBundle");
+                    Recipe fetchedRecipe = fetchedRecipeBundle.getParcelable("fetchedRecipe");
+                    Log.i("mainActivityRecipe", fetchedRecipe.toString());
+                } else if (String.valueOf(activityRouter).equals("addIngredientsFrom")) {
+                    Ingredient fetchedIngredient = result.getData().getParcelableExtra("fetchedIngredientTag");
+                    addButtons(fetchedIngredient);
+                    Log.i("mainActivityIngredient", fetchedIngredient.toString());
+                }
             }
         };
     }
@@ -101,13 +109,12 @@ public class MainActivity extends AppCompatActivity {
 
         // Set button properties
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,  // Changed to MATCH_PARENT for full width
-                dpToPx(100) // Convert 100dp to pixels
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                dpToPx(100)
         );
         params.setMargins(dpToPx(16), dpToPx(8), dpToPx(16), dpToPx(8)); // Updated margins
         button.setLayoutParams(params);
 
-        // Set button styling
         //nu ma judecati pentru acel \n va rog
         button.setText(fetchedIngredient.getIngredient_name().toString() + '\n' + String.valueOf(fetchedIngredient.getQuantity()));
         button.setPadding(dpToPx(16), dpToPx(12), dpToPx(16), dpToPx(12)); // Increased padding
