@@ -195,9 +195,12 @@ public class MainActivity extends AppCompatActivity {
                 currentView.setVisibility(View.VISIBLE);
             }
             else {
-                this.buttonContainer.removeView(currentView);
                 currentView.setVisibility(View.GONE);
             }
+        }
+
+        if(this.recipeButtonContainer.getChildAt(0) != null) {
+            this.recipeButtonContainer.getChildAt(0).setVisibility(View.GONE);
         }
     }
 }
