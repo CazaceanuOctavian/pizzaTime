@@ -32,16 +32,11 @@ public class RecipeListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_recipe_list);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
         //changes by Oct here
         Intent intent_submit=getIntent();
 
-        ListView listView = findViewById(R.id.recipe_list_activity_list_view);
+        ListView listView = findViewById(R.id.codorean_andrei_recipe_list_activity_list_view);
         ArrayList<Recipe> recipes = generateRandomRecipes(10);
 
         for ( Recipe recipe: recipes) {
@@ -64,9 +59,9 @@ public class RecipeListActivity extends AppCompatActivity {
 
                 Recipe recipe = getItem(position);
 
-                TextView titleView = view.findViewById(R.id.recipe_activity_list_item_title);
-                TextView ingredientsView = view.findViewById(R.id.recipe_activity_list_item_ingredients);
-                TextView descriptionView = view.findViewById(R.id.recipe_activity_list_item_description);
+                TextView titleView = view.findViewById(R.id.codorean_andrei_recipe_activity_list_item_title);
+                TextView ingredientsView = view.findViewById(R.id.codorean_andrei_recipe_activity_list_item_ingredients);
+                TextView descriptionView = view.findViewById(R.id.codorean_andrei_recipe_activity_list_item_description);
                 descriptionView.setVisibility(View.GONE);
 
                 descriptionView.setVisibility(
@@ -90,7 +85,7 @@ public class RecipeListActivity extends AppCompatActivity {
         };
         listView.setAdapter(adapter);
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            TextView descriptionView = view.findViewById(R.id.recipe_activity_list_item_description);
+            TextView descriptionView = view.findViewById(R.id.codorean_andrei_recipe_activity_list_item_description);
             Recipe recipe = adapter.getItem(position);
             Integer pos = position;
             if (currentSelectedRecipe.contains(pos)) {
@@ -121,7 +116,7 @@ public class RecipeListActivity extends AppCompatActivity {
                 }
         );
 
-        Button addNewRecipeBtn = findViewById(R.id.recipe_list_activity_add_recipe_btn);
+        Button addNewRecipeBtn = findViewById(R.id.codorean_andrei_recipe_list_activity_add_recipe_btn);
         addNewRecipeBtn.setOnClickListener( v -> {
 
             Intent intent = new Intent(this.getBaseContext(), AddRecipeFormActivity.class);

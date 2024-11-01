@@ -30,8 +30,8 @@ public class MostViewedActivity extends AppCompatActivity {
 //            return insets;
 //        });
 
-        Switch sortSwitch = findViewById(R.id.most_viewed_activity_sort_switch);
-        ListView listView = findViewById(R.id.most_viewed_activity_list_view);
+        Switch sortSwitch = findViewById(R.id.cobzarencu_robert_most_viewed_activity_sort_switch);
+        ListView listView = findViewById(R.id.cobzarencu_robert_most_viewed_activity_list_view);
 
         ArrayList<Recipe> recipes = generateRandomRecipes(10);
 
@@ -53,10 +53,10 @@ public class MostViewedActivity extends AppCompatActivity {
 
                 Recipe recipe = getItem(position);
 
-                TextView nameView = view.findViewById(R.id.most_viewed_activity_list_item_title);
-                TextView descView = view.findViewById(R.id.most_viewed_activity_list_item_description);
-                TextView nrView = view.findViewById(R.id.most_viewed_activity_list_item_ingredients);
-                TextView ratingView = view.findViewById(R.id.most_viewed_activity_list_item_rating);
+                TextView nameView = view.findViewById(R.id.cobzarencu_robert_most_viewed_activity_list_item_title);
+                TextView descView = view.findViewById(R.id.cobzarencu_robert_most_viewed_activity_list_item_description);
+                TextView nrView = view.findViewById(R.id.cobzarencu_robert_most_viewed_activity_list_item_ingredients);
+                TextView ratingView = view.findViewById(R.id.cobzarencu_robert_most_viewed_activity_list_item_rating);
 
                 if (recipe != null) {
                     nameView.setText(recipe.getName());
