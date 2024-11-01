@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         this.mainToolbar = findViewById(R.id.cazaceanu_octavian_main_toolbar);
         this.mainDrawerLayout = findViewById(R.id.cazaceanu_octavian_main_drawer_layout);
         Button navigateButton = findViewById(R.id.main_activity_launch_recipe_list_btn);
+        Button addRecipeButton = findViewById(R.id.cazaceanu_octavian_add_recipe_button);
 
         // Setup toolbar
         setSupportActionBar(mainToolbar);
@@ -76,18 +77,24 @@ public class MainActivity extends AppCompatActivity {
                 launcher.launch(intent);
             }
             else if (item.getItemId() == R.id.nav_most_viewed) {
-                reinitializeIngredientViews();
                 Intent intent = new Intent(MainActivity.this, MostViewedActivity.class);
                 launcher.launch(intent);
+                reinitializeIngredientViews();
             }
             return true;
         });
 
         // Setup navigate button listener
         navigateButton.setOnClickListener(v -> {
-            reinitializeIngredientViews();
             Intent getIngredientIntent = new Intent(getApplicationContext(), AddIngredientsForm.class);
             launcher.launch(getIngredientIntent);
+            reinitializeIngredientViews();
+        });
+
+        addRecipeButton.setOnClickListener(v -> {
+            Intent getIngredientIntent = new Intent(getApplicationContext(), AddRecipeFormActivity.class);
+            launcher.launch(getIngredientIntent);
+            reinitializeIngredientViews();
         });
     }
 
@@ -115,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
                     setRecipeButton(fetchedRecipe);
                     Log.i("mainActivityRecipe", fetchedRecipe.toString());
+
                 } else if (String.valueOf(activityRouter).equals("addIngredientsFrom")) {
                     Bundle ingredientBundle = result.getData().getParcelableExtra("fetchedIngredientTag");
                     Ingredient fetchedIngredient = ingredientBundle.getParcelable("ingredient");
@@ -122,6 +130,13 @@ public class MainActivity extends AppCompatActivity {
                     inputedIngredients.add(fetchedIngredient);
                     addIngredientButton(fetchedIngredient, true);
                     Log.i("mainActivityIngredient", fetchedIngredient.toString());
+
+                } else if (String.valueOf(activityRouter).equals("addRecipeFrom")) {
+                    Bundle recipeBundle = result.getData().getParcelableExtra("fetchedRecipeTag");
+                    Recipe fetchedRecipe = recipeBundle.getParcelable("recipe");
+
+                    setRecipeButton(fetchedRecipe);
+                    Log.i("mainActivityRecipe", fetchedRecipe.toString());
                 }
             }
         };
@@ -142,6 +157,8 @@ public class MainActivity extends AppCompatActivity {
         recipeButtonContainer.addView(button);
     }
 
+    //butoanele pure sunt acele butoane care retin ingredientele utilizatorului
+    //butoanele impure sunt acele butoane care apar in urma introducerii unei noi retete
     private void addIngredientButton(Ingredient fetchedIngredient, boolean isPure) {
         Button button = new Button(this);
 
@@ -153,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
         params.setMargins(dpToPx(16), dpToPx(8), dpToPx(16), dpToPx(8)); // Updated margins
         button.setLayoutParams(params);
 
-        //nu ma judecati pentru acel \n va rog
+        //tag-urile pure nu isi iau delete
         if (isPure)
             button.setTag("pure");
         button.setText(fetchedIngredient.getIngredient_name().toString() + '\n' + String.valueOf(fetchedIngredient.getQuantity()));
@@ -178,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
                 currentView.setVisibility(View.VISIBLE);
             }
             else {
+                this.buttonContainer.removeView(currentView);
                 currentView.setVisibility(View.GONE);
             }
         }

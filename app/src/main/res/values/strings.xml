@@ -66,4 +66,5 @@
     <string name="activity_most_viewed_most_viewed_recipes">Most Viewed</string>
     <string name="most_viewed_activity_sorted_by_views">Views</string>
     <string name="most_viewed_activity_sorted_by_rating">Rating</string>
+    <string name="add_recipes">Add Recipes</string>
 </resources>
