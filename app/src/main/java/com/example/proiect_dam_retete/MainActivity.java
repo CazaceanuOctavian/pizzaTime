@@ -77,24 +77,24 @@ public class MainActivity extends AppCompatActivity {
                 launcher.launch(intent);
             }
             else if (item.getItemId() == R.id.nav_most_viewed) {
+                reinitializeIngredientViews();
                 Intent intent = new Intent(MainActivity.this, MostViewedActivity.class);
                 launcher.launch(intent);
-                reinitializeIngredientViews();
             }
             return true;
         });
 
         // Setup navigate button listener
         navigateButton.setOnClickListener(v -> {
+            reinitializeIngredientViews();
             Intent getIngredientIntent = new Intent(getApplicationContext(), AddIngredientsForm.class);
             launcher.launch(getIngredientIntent);
-            reinitializeIngredientViews();
         });
 
         addRecipeButton.setOnClickListener(v -> {
+            reinitializeIngredientViews();
             Intent getIngredientIntent = new Intent(getApplicationContext(), AddRecipeFormActivity.class);
             launcher.launch(getIngredientIntent);
-            reinitializeIngredientViews();
         });
     }
 
