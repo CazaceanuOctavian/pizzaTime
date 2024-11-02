@@ -149,6 +149,7 @@ public class RecipeListActivity extends AppCompatActivity {
         });
         listView.setOnItemLongClickListener((parent,view, position, id) ->{
             Recipe recipe = adapter.getItem(position);
+            recipe.setNrViews(recipe.getNrViews()+1);
             sendRecipeToActivity(recipe,this, MainActivity.class, intent_submit);
             return true;
         });
@@ -161,14 +162,6 @@ public class RecipeListActivity extends AppCompatActivity {
                     }
                 }
         );
-
-        Button addNewRecipeBtn = findViewById(R.id.codorean_andrei_recipe_list_activity_add_recipe_btn);
-        addNewRecipeBtn.setOnClickListener( v -> {
-
-            Intent intent = new Intent(this.getBaseContext(), AddRecipeFormActivity.class);
-            launcher.launch(intent);
-            overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-        });
     }
 
     private void setBackPressAnimation(boolean enabled, int newActivityEntryAnimation, int oldActivityExitAnimation) {

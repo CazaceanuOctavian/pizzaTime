@@ -117,7 +117,9 @@ public class AddRecipeFormActivity extends AppCompatActivity {
                 }
             }
         });
+        setBackPressAnimation(true, R.anim.slide_in_left, R.anim.slide_out_right);
     }
+
 
     private boolean isValid()
     {

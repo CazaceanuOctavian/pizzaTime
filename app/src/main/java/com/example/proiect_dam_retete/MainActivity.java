@@ -44,6 +44,8 @@ import com.google.android.material.navigation.NavigationView;
 import java.io.InputStream;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class MainActivity extends AppCompatActivity {
     private static ArrayList<Ingredient> inputedIngredients = new ArrayList<Ingredient>();
@@ -174,10 +176,34 @@ public class MainActivity extends AppCompatActivity {
                 } else if (String.valueOf(activityRouter).equals("addIngredientsFrom")) {
                     Bundle ingredientBundle = result.getData().getParcelableExtra("fetchedIngredientTag");
                     Ingredient fetchedIngredient = ingredientBundle.getParcelable("ingredient");
+                    if(inputedIngredients
+                        .stream()
+                        .map(Ingredient::getIngredient_name)
+                        .collect(Collectors.toList())
+                        .contains(fetchedIngredient.getIngredient_name())){
+                        inputedIngredients.stream().forEach(item -> {
+                            if (item.getIngredient_name().equals(fetchedIngredient.getIngredient_name())) {
+                                item.setQuantity(item.getQuantity() + fetchedIngredient.getQuantity());
+                                fetchedIngredient.setQuantity(item.getQuantity());
+                            }
+                        });
+                        Button button;
+                        for (int i = 0; i <buttonContainer.getChildCount() ; i++) {
+                            if((button = (Button) buttonContainer.getChildAt(i)).getTag().toString().equals("pure" + fetchedIngredient.getIngredient_name())){
+                                button.setText(fetchedIngredient.getIngredient_name().toString() +
+                                        '\n' +
+                                        Float.valueOf(fetchedIngredient.getQuantity()).toString()
+                                );
+                            }
+                        }
+                        //if no work, put redraw after this
+                    }
+                    else{
+                        inputedIngredients.add(fetchedIngredient);
+                        addIngredientButton(fetchedIngredient, true, Color.WHITE);
+                        Log.i("mainActivityIngredient", fetchedIngredient.toString());
 
-                    inputedIngredients.add(fetchedIngredient);
-                    addIngredientButton(fetchedIngredient, true, getButtonColor(null));
-                    Log.i("mainActivityIngredient", fetchedIngredient.toString());
+                    }
 
                 } else if (String.valueOf(activityRouter).equals("addRecipeFrom")) {
                     Bundle recipeBundle = result.getData().getParcelableExtra("fetchedRecipeTag");
@@ -227,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
 
         //tag-urile pure nu isi iau delete
         if (isPure)
-            button.setTag("pure");
+            button.setTag("pure" + fetchedIngredient.getIngredient_name());
 
         Float quantity = new Float(0);
         for (Ingredient ingredient: inputedIngredients
@@ -274,7 +300,7 @@ public class MainActivity extends AppCompatActivity {
         buttonContainer.addView(button);
         //add onClick to delete
         button.setOnLongClickListener(view -> {
-            button.setTag("impure");
+            button.setTag("imp");
             button.setVisibility(View.GONE);
             inputedIngredients.remove(fetchedIngredient);
             return true;
@@ -289,7 +315,7 @@ public class MainActivity extends AppCompatActivity {
     void reinitializeIngredientViews() {
         for(int i=0; i<this.buttonContainer.getChildCount(); i++) {
             View currentView = this.buttonContainer.getChildAt(i);
-            if(currentView.getTag() != null && currentView.getTag().toString().equals("pure")) {
+            if(currentView.getTag() != null && currentView.getTag().toString().startsWith("pure")) {
                 currentView.setVisibility(View.VISIBLE);
             }
             else {
@@ -311,7 +337,7 @@ public class MainActivity extends AppCompatActivity {
                    <= ingredient.getQuantity()
                    && fetchedIngredient.getIngredient_name()
                    .equals(ingredient.getIngredient_name())){
-                color = Color.GREEN;
+                 return Color.GREEN;
                }
            else{
                 color = Color.RED;
