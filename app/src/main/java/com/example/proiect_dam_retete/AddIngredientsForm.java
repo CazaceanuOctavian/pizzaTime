@@ -53,7 +53,6 @@ public class AddIngredientsForm extends AppCompatActivity {
         spinner.setAdapter(adapter);
 
         btn_submit=findViewById(R.id.dinita_cosmina_button_Submit);
-        btn_add=findViewById(R.id.dinita_cosmina_button_Add);
         intent_submit=getIntent();
 
 

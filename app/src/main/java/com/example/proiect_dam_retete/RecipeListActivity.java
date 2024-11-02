@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -190,22 +191,19 @@ public class RecipeListActivity extends AppCompatActivity {
 
     //CHANGES BY OCT HERE
     private void sendRecipeToActivity(Recipe recipe, Activity sourceActivity, Class<? extends Activity> destinationActivity, Intent intent){
-        //TODO: Need more time to look at reloading activity state to decide between start and a Contract
-//        ActivityResultLauncher<Intent> activityLauncher = registerForActivityResult(
-//                new ActivityResultContracts.StartActivityForResult(),
-//                result ->{}
-//        );
+
         Bundle sendRecipeToMain = new Bundle();
-        //TODO:CODO refactor static string
         sendRecipeToMain.putParcelable(getString(R.string.fetched_recipe), recipe);
+
+
+
         intent.putExtra(getString(R.string.fetched_recipe_bundle),sendRecipeToMain);
         intent.putExtra(getString(R.string.activity_origin), getString(R.string.recipe_list_activity));
         setResult(RESULT_OK, intent);
         finish();
         overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
     }
-        //TODO: Make the generator a part of the Recipe class
-        //TODO: Delete generateRandomRecipes after coupling with other activities
+
     private ArrayList<Recipe> generateRandomRecipes(int count) {
         ArrayList<Recipe> recipes = new ArrayList<>();
         Random random = new Random();

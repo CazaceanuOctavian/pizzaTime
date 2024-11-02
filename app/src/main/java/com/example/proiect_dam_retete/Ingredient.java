@@ -7,9 +7,9 @@ import androidx.annotation.NonNull;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 public class Ingredient implements Parcelable {
     private float quantity;
@@ -89,9 +89,10 @@ public class Ingredient implements Parcelable {
         StringBuilder recipeIngredients = new StringBuilder();
         recipeIngredients.append("Ingredients: " + "\n");
         for (Ingredient ingredient :ingredients) {
-            recipeIngredients.append(" - " + ingredient.getIngredient_name().toString().replace("_", " ") + "\n");
+            recipeIngredients.append(" - " + ingredient.getIngredient_name().toString().replace("_", " ") + ": " + ingredient.getQuantity() +"\n");
         }
         return recipeIngredients.toString();
     }
+
 }
 

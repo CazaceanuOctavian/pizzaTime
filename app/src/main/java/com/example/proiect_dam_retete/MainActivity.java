@@ -4,6 +4,11 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.database.DataSetObserver;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.RippleDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -31,6 +36,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.splashscreen.SplashScreen;
+import androidx.core.view.ContentInfoCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
@@ -113,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
         navigateButton.setOnClickListener(v -> {
             reinitializeIngredientViews();
             Intent getIngredientIntent = new Intent(getApplicationContext(), AddIngredientsForm.class);
+            recipeButtonContainer.setVisibility(View.GONE);
             launcher.launch(getIngredientIntent);
             overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
         });
@@ -149,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
                     Bundle fetchedRecipeBundle = result.getData().getParcelableExtra("fetchedRecipeBundle");
                     Recipe fetchedRecipe = fetchedRecipeBundle.getParcelable("fetchedRecipe");
 
+
                     //hide the current ingredients and replace them with the needed ingredients for the selected recipe
                     for(int i=0; i<buttonContainer.getChildCount(); i++) {
                         View child = buttonContainer.getChildAt(i);
@@ -156,17 +164,19 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     for(int i=0; i<fetchedRecipe.getIngredientList().size(); i++) {
-                        addIngredientButton(fetchedRecipe.getIngredientList().get(i), false);
+                        addIngredientButton(fetchedRecipe.getIngredientList().get(i), false, getButtonColor(fetchedRecipe.getIngredientList().get(i)));
+
                     }
                     setRecipeButton(fetchedRecipe);
                     Log.i("mainActivityRecipe", fetchedRecipe.toString());
+                    recipeButtonContainer.setVisibility(View.VISIBLE);
 
                 } else if (String.valueOf(activityRouter).equals("addIngredientsFrom")) {
                     Bundle ingredientBundle = result.getData().getParcelableExtra("fetchedIngredientTag");
                     Ingredient fetchedIngredient = ingredientBundle.getParcelable("ingredient");
 
                     inputedIngredients.add(fetchedIngredient);
-                    addIngredientButton(fetchedIngredient, true);
+                    addIngredientButton(fetchedIngredient, true, getButtonColor(null));
                     Log.i("mainActivityIngredient", fetchedIngredient.toString());
 
                 } else if (String.valueOf(activityRouter).equals("addRecipeFrom")) {
@@ -197,14 +207,14 @@ public class MainActivity extends AppCompatActivity {
          Ingredient.sendIngredientsArrayToTextViewString(recipe.getIngredientList() )+ "\n" +
          recipe.getDescription()
         );
-        button.setLayoutParams(params);
 
+        button.setLayoutParams(params);
         recipeButtonContainer.addView(button);
     }
 
     //butoanele pure sunt acele butoane care retin ingredientele utilizatorului
     //butoanele impure sunt acele butoane care apar in urma introducerii unei noi retete
-    private void addIngredientButton(Ingredient fetchedIngredient, boolean isPure) {
+    private void addIngredientButton(Ingredient fetchedIngredient, boolean isPure, int color) {
         Button button = new Button(this);
 
         // Set button properties
@@ -218,11 +228,47 @@ public class MainActivity extends AppCompatActivity {
         //tag-urile pure nu isi iau delete
         if (isPure)
             button.setTag("pure");
-        button.setText(fetchedIngredient.getIngredient_name().toString() + '\n' + String.valueOf(fetchedIngredient.getQuantity()));
+
+        Float quantity = new Float(0);
+        for (Ingredient ingredient: inputedIngredients
+             ) {
+            if(ingredient.getIngredient_name().equals(fetchedIngredient.getIngredient_name())){
+                quantity = ingredient.getQuantity();
+            }
+        }
+
+        button.setText(fetchedIngredient.getIngredient_name().toString() + '\n' + quantity.toString());
         button.setPadding(dpToPx(16), dpToPx(12), dpToPx(16), dpToPx(12)); // Increased padding
-        button.setBackground(getResources().getDrawable(R.drawable.main_activity_button_styles, getTheme()));
         button.setTextColor(Color.BLACK);
         button.setElevation(dpToPx(2));
+
+        float radius = dpToPx(20);
+        float[] radii = new float[] {
+            radius, radius, // Top left corner
+            radius, radius, // Top right corner
+            radius, radius, // Bottom right corner
+            radius, radius  // Bottom left corner
+        };
+         // Create a new background color
+        RoundRectShape roundRectShape = new RoundRectShape(radii, null, null);
+
+        // Create shape drawable
+        ShapeDrawable shapeDrawable = new ShapeDrawable(roundRectShape);
+        shapeDrawable.getPaint().setColor(color);
+        shapeDrawable.getPaint().setStyle(Paint.Style.FILL);
+        // Add stroke if needed
+        shapeDrawable.getPaint().setStrokeWidth(dpToPx(1));
+        shapeDrawable.getPaint().setColor(color);
+
+        // Create new ripple drawable
+        RippleDrawable rippleDrawable = new RippleDrawable(
+            ColorStateList.valueOf(color), // Ripple color
+            shapeDrawable,  // Content
+            null  // Mask
+        );
+
+        button.setBackground(rippleDrawable);
+
 
         // Add button to container
         buttonContainer.addView(button);
@@ -254,6 +300,24 @@ public class MainActivity extends AppCompatActivity {
         if(this.recipeButtonContainer.getChildAt(0) != null) {
             this.recipeButtonContainer.getChildAt(0).setVisibility(View.GONE);
         }
+    }
+    public int getButtonColor(Ingredient fetchedIngredient){
+        int color = Color.WHITE;
+        if(fetchedIngredient == null){
+            return color;
+        }
+        for (Ingredient ingredient: inputedIngredients) {
+           if( fetchedIngredient.getQuantity()
+                   <= ingredient.getQuantity()
+                   && fetchedIngredient.getIngredient_name()
+                   .equals(ingredient.getIngredient_name())){
+                color = Color.GREEN;
+               }
+           else{
+                color = Color.RED;
+           }
+        }
+        return color;
     }
 
 }

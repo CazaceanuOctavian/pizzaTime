@@ -145,6 +145,15 @@ public class Recipe implements Parcelable {
         writer.newLine();
         writer.flush();
     }
+
+    public int getIndexOf(Ingredient ingredient){
+        for(int i = 0; i < this.ingredientList.size(); i++){
+            if(this.ingredientList.get(i).getIngredient_name() == ingredient.getIngredient_name()){
+                return i;
+            }
+        }
+        return -1;
+    }
     public static List<Recipe> readParceledTxtFile(InputStream rawResourceInputStream){
         ArrayList<Recipe> recipes = new ArrayList<Recipe>();
         ArrayList<Ingredient> ingredients = null;
