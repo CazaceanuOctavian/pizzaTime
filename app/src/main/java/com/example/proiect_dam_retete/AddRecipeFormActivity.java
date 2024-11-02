@@ -71,7 +71,7 @@ public class AddRecipeFormActivity extends AppCompatActivity {
                         ingredients.append(i.getIngredient_name());
                         ingredients.append(" - ");
                         ingredients.append(i.getQuantity());
-                        ingredients.append("/n");
+                        ingredients.append("\n");
                     }
                     ingredients_list_text_view.setText(ingredients.toString());
                 }

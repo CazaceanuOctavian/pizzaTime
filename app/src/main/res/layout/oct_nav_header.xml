@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="176dp"
     android:gravity="bottom"
     android:orientation="vertical"
     android:padding="16dp"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    android:theme="@style/TextView"
+    >
 
     <ImageView
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:src="@drawable/baseline_fastfood_24"/>
+        android:id="@+id/cazaceanu_octavian_image_view_logo"
+        android:layout_width="120dp"
+        android:layout_height="100dp"
+        android:src="@drawable/logo"/>
 
     <TextView
+        android:id="@+id/cazaceanu_octavian_text_view_cooking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Foodstest"
+        android:text="@string/time_for_cooking"
         android:textSize="16sp"
-        android:layout_marginTop="16dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Choose your food"/>
+        android:layout_margin="8dp"/>
 
 </LinearLayout>

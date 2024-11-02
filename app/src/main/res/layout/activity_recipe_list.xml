@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--TODO: CODO change IDs and Strings-->
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/codorean_andrei_recipe_activity_list_constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/green_pastel"
+    android:theme="@style/Buttons"
     tools:context=".RecipeListActivity">
     <ListView
         android:id="@+id/codorean_andrei_recipe_list_activity_list_view"
@@ -19,18 +21,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
+
     <Button
         android:id="@+id/codorean_andrei_recipe_list_activity_add_recipe_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:text="@string/add_recipe"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="30dp"
-        android:textColor="@color/white"
-        android:background="@color/design_default_color_on_primary"
-        android:textSize="14sp"
-        android:text="Press me"
-        android:lines="1"
-        ></Button>
+        app:layout_constraintStart_toStartOf="parent"></Button>
 </androidx.constraintlayout.widget.ConstraintLayout>

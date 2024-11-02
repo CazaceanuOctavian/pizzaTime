@@ -62,9 +62,11 @@
     <string name="main_tv_info_dishes">Avalabile dishes for your selected ingredients:</string>
     <string name="main_tv_info_ingredients">You have selected the following ingredientes</string>
     <string name="main_btn_add_ingredients">Add ingredients</string>
-    <string name="no_ingredients_string">Whoops... There are no ingredients selected!</string>
+    <string name="no_ingredients_string">Whoops... </string>
     <string name="activity_most_viewed_most_viewed_recipes">Most Viewed</string>
     <string name="most_viewed_activity_sorted_by_views">Views</string>
     <string name="most_viewed_activity_sorted_by_rating">Rating</string>
     <string name="add_recipes">Add Recipes</string>
+    <string name="time_for_cooking">Time for cooking</string>
+    <string name="add_recipe">Add Recipe</string>
 </resources>

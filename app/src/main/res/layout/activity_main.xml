@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/whiteSpecial"
     tools:context=".MainActivity">
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -39,28 +40,45 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:scaleType="fitCenter"
                 android:text="@string/no_ingredients_string"
                 app:layout_constraintBottom_toTopOf="@id/cazaceanu_octavian_no_food_icon"
                 app:layout_constraintTop_toBottomOf="@+id/cazaceanu_octavian_main_appbar_layout"
-                app:layout_constraintVertical_bias="0.94" />
+                app:layout_constraintVertical_bias="0.94"
+                android:layout_marginTop="64dp"
+                android:textSize="32dp"
+
+                />
 
             <ImageView
                 android:id="@+id/cazaceanu_octavian_no_food_icon"
-                app:layout_constraintTop_toBottomOf="@id/cazaceanu_octavian_main_appbar_layout"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="32dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/poza_no_ingrediente"
                 app:layout_constraintBottom_toTopOf="@+id/cazaceanu_octavian_main_add_buttons"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/baseline_no_food_24"/>
+                app:layout_constraintDimensionRatio="1"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cazaceanu_octavian_tv_no_ingredients" />
 
             <LinearLayout
                 android:id="@+id/cazaceanu_octavian_buttonContainer_recipe"
-                app:layout_constraintBottom_toTopOf="@id/cazaceanu_octavian_horizontalScrollView"
-                app:layout_constraintTop_toBottomOf="@id/cazaceanu_octavian_main_appbar_layout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:orientation="horizontal" />
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@id/cazaceanu_octavian_horizontalScrollView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cazaceanu_octavian_no_food_icon" />
 
             <HorizontalScrollView
                 android:id="@+id/cazaceanu_octavian_horizontalScrollView"
@@ -92,22 +110,20 @@
                     android:id="@+id/main_activity_launch_recipe_list_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="80dp"
+                    android:layout_marginBottom="64dp"
                     android:lines="1"
                     android:text="@string/main_btn_add_ingredients"
-                    android:textColor="@color/black"
-                    android:layout_weight="1"/>
+                    android:layout_weight="2"/>
 
                 <Button
                     android:id="@+id/cazaceanu_octavian_add_recipe_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="80dp"
+                    android:layout_marginBottom="64dp"
                     android:lines="1"
                     android:text="@string/add_recipes"
-                    android:textColor="@color/black"
                     android:layout_marginStart="50dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="2"/>
 
             </LinearLayout>
 
@@ -119,6 +135,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             app:headerLayout="@layout/oct_nav_header"
+            android:background="@color/green_pastel"
             app:menu="@menu/oct_nav_menu" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
