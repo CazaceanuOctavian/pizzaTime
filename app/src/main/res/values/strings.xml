@@ -71,4 +71,6 @@
     <string name="fetched_recipe_bundle">fetchedRecipeBundle</string>
     <string name="activity_origin">activityOrigin</string>
     <string name="recipe_list_activity">RecipeListActivity</string>
+    <string name="recipes_array">current_recipes</string>
+
 </resources>

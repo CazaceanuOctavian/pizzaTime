@@ -52,11 +52,11 @@ public class MainActivity extends AppCompatActivity {
         splashScreen.setKeepOnScreenCondition(() ->{
             InputStream inputStream = getResources().openRawResource(R.raw.input);
             readRecipes = new ArrayList<Recipe>(Recipe.readParceledTxtFile(inputStream));
-//            return readRecipes.size() != 0
-            return false;
+            return isLoading[0];
         });
-
-
+         new Handler().postDelayed(() -> {
+             isLoading[0] =false;
+        }, 1500);
         setContentView(R.layout.activity_main);
         // Initialize the launcher
         launcher = registerForActivityResult(
@@ -81,12 +81,18 @@ public class MainActivity extends AppCompatActivity {
             if (item.getItemId() == R.id.nav_recipes) {
                 reinitializeIngredientViews();
                 Intent intent = new Intent(MainActivity.this, RecipeListActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList(getString(R.string.recipes_array),readRecipes);
+                intent.putExtra(getString(R.string.fetched_recipe_bundle),bundle);
                 launcher.launch(intent);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             }
             else if (item.getItemId() == R.id.nav_most_viewed) {
                 reinitializeIngredientViews();
                 Intent intent = new Intent(MainActivity.this, MostViewedActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList(getString(R.string.recipes_array),readRecipes);
+                intent.putExtra(getString(R.string.fetched_recipe_bundle),bundle);
                 launcher.launch(intent);
                 overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
             }

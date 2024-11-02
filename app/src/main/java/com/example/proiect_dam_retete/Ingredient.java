@@ -9,6 +9,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Ingredient implements Parcelable {
     private float quantity;
@@ -84,4 +85,13 @@ public class Ingredient implements Parcelable {
         String ingredient_name = input[1];
         return new Ingredient(quantity,EIngredients.valueOf(ingredient_name));
     }
+    public static String sendIngredientsArrayToTextViewString(List<Ingredient> ingredients){
+        StringBuilder recipeIngredients = new StringBuilder();
+        recipeIngredients.append("Ingredients: " + "\n");
+        for (Ingredient ingredient :ingredients) {
+            recipeIngredients.append(" - " + ingredient.getIngredient_name().toString() + "\n");
+        }
+        return recipeIngredients.toString();
+    }
 }
+

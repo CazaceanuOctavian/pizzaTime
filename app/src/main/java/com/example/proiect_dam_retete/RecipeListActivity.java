@@ -42,7 +42,9 @@ public class RecipeListActivity extends AppCompatActivity {
         Intent intent_submit=getIntent();
 
         ListView listView = findViewById(R.id.codorean_andrei_recipe_list_activity_list_view);
-        ArrayList<Recipe> recipes = generateRandomRecipes(10);
+        ArrayList<Recipe> recipes = getIntent().getBundleExtra(
+                getString(R.string.fetched_recipe_bundle))
+                .getParcelableArrayList(getString(R.string.recipes_array));
 
         for ( Recipe recipe: recipes) {
             Log.d(getString(R.string.default_logging_string),recipe.toString());
@@ -67,21 +69,17 @@ public class RecipeListActivity extends AppCompatActivity {
                 TextView titleView = view.findViewById(R.id.codorean_andrei_recipe_activity_list_item_title);
                 TextView ingredientsView = view.findViewById(R.id.codorean_andrei_recipe_activity_list_item_ingredients);
                 TextView descriptionView = view.findViewById(R.id.codorean_andrei_recipe_activity_list_item_description);
-                descriptionView.setVisibility(View.GONE);
+                ingredientsView.setVisibility(View.GONE);
 
-                descriptionView.setVisibility(
+                ingredientsView.setVisibility(
                         currentSelectedRecipe.contains(position) ? View.VISIBLE : View.GONE
                 );
 
                 if (recipe != null) {
                     titleView.setText(recipe.getName());
 
-                    StringBuilder recipeIngredients = new StringBuilder();
-                    recipeIngredients.append("Ingredients: ");
-                    for (Ingredient ingredient : recipe.getIngredientList()) {
-                        recipeIngredients.append(ingredient.getIngredient_name().toString() + "\n");
-                    }
-                    ingredientsView.setText(recipeIngredients.toString());
+
+                    ingredientsView.setText(Ingredient.sendIngredientsArrayToTextViewString(recipe.getIngredientList()));
                     descriptionView.setText(recipe.getDescription());
                 }
 
@@ -90,19 +88,16 @@ public class RecipeListActivity extends AppCompatActivity {
         };
         listView.setAdapter(adapter);
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            TextView descriptionView = view.findViewById(R.id.codorean_andrei_recipe_activity_list_item_description);
+            TextView ingredientsView = view.findViewById(R.id.codorean_andrei_recipe_activity_list_item_ingredients);
             Recipe recipe = adapter.getItem(position);
             Integer pos = position;
             if (currentSelectedRecipe.contains(pos)) {
-                descriptionView.setVisibility(View.GONE);
-                descriptionView.setText(R.string.empty_string);
+                ingredientsView.setVisibility(View.GONE);
                 currentSelectedRecipe.remove(Integer.valueOf(position));
 
             } else {
-                descriptionView.setVisibility(View.VISIBLE);
-                descriptionView.setText(Objects.requireNonNull(recipe).getDescription());
+                ingredientsView.setVisibility(View.VISIBLE);
                 currentSelectedRecipe.add(pos);
-
             }
             adapter.notifyDataSetChanged();
         });

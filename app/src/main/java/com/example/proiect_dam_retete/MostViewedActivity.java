@@ -36,7 +36,9 @@ public class MostViewedActivity extends AppCompatActivity {
         Switch sortSwitch = findViewById(R.id.cobzarencu_robert_most_viewed_activity_sort_switch);
         ListView listView = findViewById(R.id.cobzarencu_robert_most_viewed_activity_list_view);
 
-        ArrayList<Recipe> recipes = generateRandomRecipes(10);
+        ArrayList<Recipe> recipes = getIntent().getBundleExtra(
+                getString(R.string.fetched_recipe_bundle))
+                .getParcelableArrayList(getString(R.string.recipes_array));
 
         ArrayList<Recipe> sortedRecipesList = sortRecipesByViews(recipes);
 
