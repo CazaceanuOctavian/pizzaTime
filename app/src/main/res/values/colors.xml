@@ -3,4 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="bleumarin">#182F80</color>
+    <color name="greenSpecial">#6c8e5d</color>
+    <color name="whiteSpecial">#F5F5F5</color>
+    <color name="green_pastel">#DFF2DF</color>
 </resources>
