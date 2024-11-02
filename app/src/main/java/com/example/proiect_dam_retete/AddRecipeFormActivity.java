@@ -9,6 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -92,6 +94,7 @@ public class AddRecipeFormActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(getApplicationContext(), AddIngredientsForm.class);
                 launcher.launch(intent);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             }
         });
 
@@ -110,6 +113,7 @@ public class AddRecipeFormActivity extends AppCompatActivity {
                     submitIntent.putExtra("activityOrigin", "addRecipeFrom");
                     setResult(RESULT_OK,submitIntent);
                     finish();
+                    overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                 }
             }
         });
@@ -127,5 +131,16 @@ public class AddRecipeFormActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+    private void setBackPressAnimation(boolean enabled, int newActivityEntryAnimation, int oldActivityExitAnimation) {
+        OnBackPressedDispatcher backPressed = getOnBackPressedDispatcher();
+        OnBackPressedCallback callback = new OnBackPressedCallback(enabled) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+                overridePendingTransition(newActivityEntryAnimation,oldActivityExitAnimation);
+            }
+        };
+        backPressed.addCallback(this, callback);
     }
 }

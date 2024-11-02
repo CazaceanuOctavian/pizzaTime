@@ -1,0 +1,159 @@
+Recipe: Classic Spaghetti Carbonara,Cook pasta al dente then mix with crispy bacon and egg-parmesan sauce,245,4
+Ingredient: 500,PASTA
+Ingredient: 200,BACON
+Ingredient: 4,EGGS
+Ingredient: 100,PARMESAN
+Ingredient: 2,BLACK_PEPPER
+Ingredient: 5,GARLIC
+
+Recipe: Chicken Alfredo,Tender chicken with creamy parmesan pasta,187,5
+Ingredient: 400,PASTA
+Ingredient: 300,CHICKEN
+Ingredient: 200,COOKING_CREAM
+Ingredient: 100,PARMESAN
+Ingredient: 10,GARLIC
+Ingredient: 50,BUTTER
+
+Recipe: Margherita Pizza,Simple pizza topped with tomato sauce and fresh mozzarella,423,5
+Ingredient: 300,FLOUR
+Ingredient: 10,YEAST
+Ingredient: 200,TOMATO_SAUCE
+Ingredient: 250,MOZZARELLA
+Ingredient: 15,BASIL
+Ingredient: 30,OLIVE_OIL
+
+Recipe: Chocolate Chip Cookies,Soft chewy cookies filled with chocolate chunks,756,5
+Ingredient: 250,FLOUR
+Ingredient: 150,SUGAR
+Ingredient: 100,BUTTER
+Ingredient: 200,CHOCOLATE
+Ingredient: 2,EGGS
+Ingredient: 5,VANILLA_EXTRACT
+
+Recipe: Garlic Butter Salmon,Pan-seared salmon with lemon butter sauce,234,4
+Ingredient: 400,SALMON
+Ingredient: 50,BUTTER
+Ingredient: 20,GARLIC
+Ingredient: 30,LEMON
+Ingredient: 10,PARSLEY
+Ingredient: 5,BLACK_PEPPER
+
+Recipe: Mushroom Risotto,Creamy rice with sauteed mushrooms,198,4
+Ingredient: 300,RICE
+Ingredient: 200,MUSHROOMS
+Ingredient: 100,PARMESAN
+Ingredient: 200,COOKING_CREAM
+Ingredient: 20,GARLIC
+Ingredient: 50,BUTTER
+
+Recipe: Avocado Toast,Toasted bread with mashed avocado and eggs,867,4
+Ingredient: 200,BREAD
+Ingredient: 200,AVOCADO
+Ingredient: 5,SALT
+Ingredient: 20,LEMON
+Ingredient: 2,EGGS
+Ingredient: 5,BLACK_PEPPER
+
+Recipe: Greek Salad,Fresh vegetables with olives and feta cheese,445,5
+Ingredient: 200,CUCUMBERS
+Ingredient: 200,TOMATOES
+Ingredient: 100,OLIVES
+Ingredient: 100,BELL_PEPPERS
+Ingredient: 50,ONIONS
+Ingredient: 30,OLIVE_OIL
+
+Recipe: Chicken Parmesan,Crispy chicken with tomato sauce and melted cheese,334,5
+Ingredient: 400,CHICKEN
+Ingredient: 100,BREAD_CRUMBS
+Ingredient: 200,TOMATO_SAUCE
+Ingredient: 200,MOZZARELLA
+Ingredient: 100,PARMESAN
+Ingredient: 10,BASIL
+
+Recipe: Blueberry Muffins,Fluffy muffins filled with fresh blueberries,567,4
+Ingredient: 250,FLOUR
+Ingredient: 150,SUGAR
+Ingredient: 200,BLUEBERRIES
+Ingredient: 100,BUTTER
+Ingredient: 2,EGGS
+Ingredient: 10,BAKING_POWDER
+
+Recipe: Beef Stir Fry,Quick Asian style beef with colorful vegetables,289,4
+Ingredient: 400,BEEF
+Ingredient: 200,BELL_PEPPERS
+Ingredient: 150,CARROTS
+Ingredient: 100,ONIONS
+Ingredient: 50,GARLIC
+Ingredient: 30,OLIVE_OIL
+
+Recipe: Potato Soup,Creamy potato soup topped with crispy bacon,178,4
+Ingredient: 500,POTATOES
+Ingredient: 200,BACON
+Ingredient: 200,COOKING_CREAM
+Ingredient: 100,ONIONS
+Ingredient: 100,CELERY
+Ingredient: 50,GARLIC
+
+Recipe: Spinach and Mushroom Quiche,Savory egg pie with vegetables,156,4
+Ingredient: 200,FLOUR
+Ingredient: 200,SPINACH
+Ingredient: 200,MUSHROOMS
+Ingredient: 4,EGGS
+Ingredient: 200,COOKING_CREAM
+Ingredient: 100,CHEESE
+
+Recipe: Honey Glazed Carrots,Sweet roasted carrots with honey glaze,445,3
+Ingredient: 400,CARROTS
+Ingredient: 50,HONEY
+Ingredient: 50,BUTTER
+Ingredient: 5,SALT
+Ingredient: 5,BLACK_PEPPER
+Ingredient: 10,PARSLEY
+
+Recipe: Pesto Pasta Salad,Cold pasta tossed with pesto and vegetables,234,4
+Ingredient: 400,PASTA
+Ingredient: 200,PESTO
+Ingredient: 200,TOMATOES
+Ingredient: 100,MOZZARELLA
+Ingredient: 50,OLIVES
+Ingredient: 30,OLIVE_OIL
+
+Recipe: Apple Cinnamon Oatmeal,Hot oatmeal with cinnamon apples,567,4
+Ingredient: 300,OAT
+Ingredient: 200,APPLES
+Ingredient: 50,HONEY
+Ingredient: 10,CINNAMON
+Ingredient: 200,MILK
+Ingredient: 50,ALMONDS
+
+Recipe: Garlic Shrimp Pasta,Pasta with garlic shrimp in cream sauce,445,5
+Ingredient: 400,PASTA
+Ingredient: 300,SHRIMPS
+Ingredient: 30,GARLIC
+Ingredient: 200,COOKING_CREAM
+Ingredient: 30,PARSLEY
+Ingredient: 20,LEMON
+
+Recipe: Vegetable Stir Fry,Mixed vegetables in savory sauce,178,4
+Ingredient: 200,BELL_PEPPERS
+Ingredient: 200,CARROTS
+Ingredient: 200,MUSHROOMS
+Ingredient: 200,ZUCCHINI
+Ingredient: 100,ONIONS
+Ingredient: 50,GARLIC
+
+Recipe: Turkey Meatballs,Tender turkey meatballs in tomato sauce,223,4
+Ingredient: 500,TURKEY
+Ingredient: 100,BREAD_CRUMBS
+Ingredient: 2,EGGS
+Ingredient: 200,TOMATO_SAUCE
+Ingredient: 50,ONIONS
+Ingredient: 20,GARLIC
+
+Recipe: Cream of Mushroom Soup,Rich soup with fresh mushrooms,156,4
+Ingredient: 400,MUSHROOMS
+Ingredient: 200,COOKING_CREAM
+Ingredient: 100,ONIONS
+Ingredient: 50,BUTTER
+Ingredient: 20,GARLIC
+Ingredient: 10,BLACK_PEPPER

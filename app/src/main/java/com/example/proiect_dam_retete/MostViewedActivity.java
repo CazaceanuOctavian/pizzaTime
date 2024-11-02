@@ -10,6 +10,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -23,13 +25,14 @@ public class MostViewedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_most_viewed);
 //        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
 //            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
 //            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
 //            return insets;
 //        });
-
+        setBackPressAnimation(true, R.anim.slide_in_right, R.anim.slide_out_left);
         Switch sortSwitch = findViewById(R.id.cobzarencu_robert_most_viewed_activity_sort_switch);
         ListView listView = findViewById(R.id.cobzarencu_robert_most_viewed_activity_list_view);
 
@@ -146,5 +149,16 @@ public class MostViewedActivity extends AppCompatActivity {
             recipes.add(recipe);
         }
         return recipes;
+    }
+    private void setBackPressAnimation(boolean enabled, int newActivityEntryAnimation, int oldActivityExitAnimation) {
+        OnBackPressedDispatcher backPressed = getOnBackPressedDispatcher();
+        OnBackPressedCallback callback = new OnBackPressedCallback(enabled) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+                overridePendingTransition(newActivityEntryAnimation,oldActivityExitAnimation);
+            }
+        };
+        backPressed.addCallback(this, callback);
     }
 }

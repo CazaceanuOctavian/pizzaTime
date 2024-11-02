@@ -67,4 +67,8 @@
     <string name="most_viewed_activity_sorted_by_views">Views</string>
     <string name="most_viewed_activity_sorted_by_rating">Rating</string>
     <string name="add_recipes">Add Recipes</string>
+    <string name="fetched_recipe">fetchedRecipe</string>
+    <string name="fetched_recipe_bundle">fetchedRecipeBundle</string>
+    <string name="activity_origin">activityOrigin</string>
+    <string name="recipe_list_activity">RecipeListActivity</string>
 </resources>

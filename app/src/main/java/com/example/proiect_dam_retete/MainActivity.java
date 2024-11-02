@@ -26,12 +26,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.InputStream;
 import java.sql.Time;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private static ArrayList<Ingredient> inputedIngredients = new ArrayList<Ingredient>();
 
+    private ArrayList<Recipe> readRecipes = new ArrayList<Recipe>();
     private NavigationView mainNav;
     private Toolbar mainToolbar;
     private DrawerLayout mainDrawerLayout;
@@ -48,11 +50,12 @@ public class MainActivity extends AppCompatActivity {
         final boolean[] isLoading = {true};
         SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
         splashScreen.setKeepOnScreenCondition(() ->{
-            return isLoading[0];
+            InputStream inputStream = getResources().openRawResource(R.raw.input);
+            readRecipes = new ArrayList<Recipe>(Recipe.readParceledTxtFile(inputStream));
+//            return readRecipes.size() != 0
+            return false;
         });
-        new Handler().postDelayed(()->{
-            isLoading[0] = false;
-        },3000);
+
 
         setContentView(R.layout.activity_main);
         // Initialize the launcher
@@ -79,11 +82,13 @@ public class MainActivity extends AppCompatActivity {
                 reinitializeIngredientViews();
                 Intent intent = new Intent(MainActivity.this, RecipeListActivity.class);
                 launcher.launch(intent);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             }
             else if (item.getItemId() == R.id.nav_most_viewed) {
                 reinitializeIngredientViews();
                 Intent intent = new Intent(MainActivity.this, MostViewedActivity.class);
                 launcher.launch(intent);
+                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
             }
             return true;
         });
@@ -93,12 +98,14 @@ public class MainActivity extends AppCompatActivity {
             reinitializeIngredientViews();
             Intent getIngredientIntent = new Intent(getApplicationContext(), AddIngredientsForm.class);
             launcher.launch(getIngredientIntent);
+            overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
         });
 
         addRecipeButton.setOnClickListener(v -> {
             reinitializeIngredientViews();
             Intent getIngredientIntent = new Intent(getApplicationContext(), AddRecipeFormActivity.class);
             launcher.launch(getIngredientIntent);
+            overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
         });
     }
     void initializeViews(){
@@ -218,4 +225,5 @@ public class MainActivity extends AppCompatActivity {
             this.recipeButtonContainer.getChildAt(0).setVisibility(View.GONE);
         }
     }
+
 }

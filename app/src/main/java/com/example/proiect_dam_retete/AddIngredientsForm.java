@@ -9,6 +9,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -30,6 +32,7 @@ public class AddIngredientsForm extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_ingredients_form);
+        setBackPressAnimation(true, R.anim.slide_in_left, R.anim.slide_out_right);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -68,6 +71,7 @@ public class AddIngredientsForm extends AppCompatActivity {
                     intent_submit.putExtra("fetchedIngredientTag", bundle);
                     setResult(RESULT_OK, intent_submit);
                     finish();
+                    overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                 }
             }
         });
@@ -93,5 +97,16 @@ public class AddIngredientsForm extends AppCompatActivity {
         }
 
         return true;
+    }
+     private void setBackPressAnimation(boolean enabled, int newActivityEntryAnimation, int oldActivityExitAnimation) {
+        OnBackPressedDispatcher backPressed = getOnBackPressedDispatcher();
+        OnBackPressedCallback callback = new OnBackPressedCallback(enabled) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+                overridePendingTransition(newActivityEntryAnimation,oldActivityExitAnimation);
+            }
+        };
+        backPressed.addCallback(this, callback);
     }
 }

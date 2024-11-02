@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -70,5 +72,16 @@ public class Ingredient implements Parcelable {
                 "quantity=" + quantity +
                 ", ingredient_name=" + ingredient_name +
                 '}';
+    }
+    public String toParcelFormat(){
+        return "Ingredient: " + quantity + "," + ingredient_name;
+    }
+    public void writeAsParcelToTxt(BufferedWriter writer) throws IOException {
+        writer.append(this.toParcelFormat());
+    }
+    public static Ingredient createIngredient(String[] input){
+        float quantity =Float.parseFloat(input[0]);
+        String ingredient_name = input[1];
+        return new Ingredient(quantity,EIngredients.valueOf(ingredient_name));
     }
 }

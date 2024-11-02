@@ -5,7 +5,15 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.IntFunction;
 
 public class Recipe implements Parcelable {
@@ -115,10 +123,81 @@ public class Recipe implements Parcelable {
     @Override
     public String toString() {
         return "Recipe{" +
-                "nume='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", ingredientList=" + ingredientList +
-                ", descriere='" + description + '\'' +
+                ", description='" + description + '\'' +
                 ", nrViews=" + nrViews +
+                ", rating=" + rating +
                 '}';
+    }
+    public String toParcelFormat(){
+        return "Recipe: " + name +
+                "," + description+
+                "," + nrViews+
+                ","+ rating;
+    }
+    public void writeParcelToTxt(BufferedWriter writer) throws IOException {
+        writer.append(this.toParcelFormat());
+        for (Ingredient ingredient:this.ingredientList) {
+            writer.newLine();
+            writer.append(ingredient.toParcelFormat());
+        }
+        writer.newLine();
+        writer.flush();
+    }
+    public static List<Recipe> readParceledTxtFile(InputStream rawResourceInputStream){
+        ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+        ArrayList<Ingredient> ingredients = null;
+        int rating = 0;
+        int nrViews = 0;
+        String description= null;
+        String name = null;
+        try (BufferedReader bufferedReader =
+                     new BufferedReader(
+                             new InputStreamReader(rawResourceInputStream)
+                     )
+        ){
+            String line;
+            while ((line = bufferedReader.readLine())!= null){
+                if (line.trim().isEmpty()) {
+                    continue;
+                }
+                line = line.trim();
+                String[] labelVarsSplit = line.split(":");
+                String[] lineValues = labelVarsSplit[1].split(",");
+                Arrays.stream(lineValues).forEach(val -> val.trim());
+
+                if(labelVarsSplit[0].equals("Ingredient") ){
+                    ingredients.add(Ingredient.createIngredient(lineValues));
+                    
+                } else if (labelVarsSplit[0].equals("Recipe") ) {
+                    if(ingredients != null && name != null){
+                        recipes.add(new Recipe(name,
+                                         ingredients,
+                                         description,
+                                         nrViews,
+                                         rating
+                                         ));
+                    }
+                    ingredients = new ArrayList<>();
+                    name = lineValues[0];
+                    description = lineValues[1];
+                    nrViews = Integer.parseInt(lineValues[2]);
+                    rating = Integer.parseInt(lineValues[3]);
+                }
+
+            }
+            if(ingredients != null && name != null){
+                    recipes.add(new Recipe(name,
+                                         ingredients,
+                                         description,
+                                         nrViews,
+                                         rating
+                                         ));
+            }
+        }catch (Exception e){
+            return null;
+        }
+        return recipes;
     }
 }
