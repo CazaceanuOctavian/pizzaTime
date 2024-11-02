@@ -2,14 +2,21 @@ package com.example.proiect_dam_retete;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +25,8 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -42,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout buttonContainer;
     private TextView noIngredientTextView;
     private ImageView noIngredientImageView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         );
 
         initializeViews();
+
         Button navigateButton = findViewById(R.id.main_activity_launch_recipe_list_btn);
         Button addRecipeButton = findViewById(R.id.cazaceanu_octavian_add_recipe_button);
 
@@ -83,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, RecipeListActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList(getString(R.string.recipes_array),readRecipes);
+                bundle.putParcelableArrayList(getString(R.string.selected_ingredients), inputedIngredients);
                 intent.putExtra(getString(R.string.fetched_recipe_bundle),bundle);
                 launcher.launch(intent);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
@@ -113,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
             launcher.launch(getIngredientIntent);
             overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
         });
+
     }
     void initializeViews(){
         // Initialize views
@@ -147,7 +158,6 @@ public class MainActivity extends AppCompatActivity {
                     for(int i=0; i<fetchedRecipe.getIngredientList().size(); i++) {
                         addIngredientButton(fetchedRecipe.getIngredientList().get(i), false);
                     }
-
                     setRecipeButton(fetchedRecipe);
                     Log.i("mainActivityRecipe", fetchedRecipe.toString());
 
@@ -178,9 +188,15 @@ public class MainActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams.MATCH_PARENT,  // Width matches parent
                 LinearLayout.LayoutParams.MATCH_PARENT   // Height matches parent
         );
-
+        button.setBackground(getResources().getDrawable(R.drawable.main_activity_button_styles, getTheme()));
         params.setMargins(dpToPx(16), dpToPx(8), dpToPx(16), dpToPx(8));
-        button.setText(recipe.toString());
+
+        // recipe.getName() + "\n" +  Ingredient.sendIngredientsArrayToTextViewString(recipe.getIngredientList() + "\n" + recipe.getDescription()
+        button.setText(
+         recipe.getName() + "\n" +
+         Ingredient.sendIngredientsArrayToTextViewString(recipe.getIngredientList() )+ "\n" +
+         recipe.getDescription()
+        );
         button.setLayoutParams(params);
 
         recipeButtonContainer.addView(button);
@@ -210,6 +226,13 @@ public class MainActivity extends AppCompatActivity {
 
         // Add button to container
         buttonContainer.addView(button);
+        //add onClick to delete
+        button.setOnLongClickListener(view -> {
+            button.setTag("impure");
+            button.setVisibility(View.GONE);
+            inputedIngredients.remove(fetchedIngredient);
+            return true;
+        });
     }
 
     private int dpToPx(int dp) {

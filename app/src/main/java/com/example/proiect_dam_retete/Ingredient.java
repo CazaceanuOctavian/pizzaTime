@@ -89,7 +89,7 @@ public class Ingredient implements Parcelable {
         StringBuilder recipeIngredients = new StringBuilder();
         recipeIngredients.append("Ingredients: " + "\n");
         for (Ingredient ingredient :ingredients) {
-            recipeIngredients.append(" - " + ingredient.getIngredient_name().toString() + "\n");
+            recipeIngredients.append(" - " + ingredient.getIngredient_name().toString().replace("_", " ") + "\n");
         }
         return recipeIngredients.toString();
     }

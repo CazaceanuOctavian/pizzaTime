@@ -19,6 +19,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -27,9 +28,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class RecipeListActivity extends AppCompatActivity {
     private static final List<Integer> currentSelectedRecipe = new ArrayList<>();
+    private List<Ingredient> pickedIngredients = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,11 +43,54 @@ public class RecipeListActivity extends AppCompatActivity {
 
         //changes by Oct here
         Intent intent_submit=getIntent();
+        Bundle ingredientsBundle = intent_submit.getBundleExtra(getString(R.string.fetched_recipe_bundle));
+        pickedIngredients = ingredientsBundle.getParcelableArrayList(getString(R.string.selected_ingredients));
 
         ListView listView = findViewById(R.id.codorean_andrei_recipe_list_activity_list_view);
-        ArrayList<Recipe> recipes = getIntent().getBundleExtra(
+        TextView tvStatus = findViewById(R.id.codorean_andrei_recipe_activity_list_status);
+        ArrayList<Recipe> recipesLoaded = getIntent().getBundleExtra(
                 getString(R.string.fetched_recipe_bundle))
                 .getParcelableArrayList(getString(R.string.recipes_array));
+
+         ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+         //you made me do this, it was such an easy DB QUERRRYYYYYYYY
+        for (Recipe recipe: recipesLoaded
+             ) {
+            boolean ingredientsContained = false;
+            for (Ingredient ingredientPicked:pickedIngredients
+                 ) {
+                if(recipe.getIngredientList()
+                        .stream()
+                        .map(Ingredient::getIngredient_name)
+                        .collect(Collectors.toList())
+                        .contains(ingredientPicked.getIngredient_name())
+                       ){
+                    ingredientsContained = true;
+                }
+//                for(Ingredient ingredient:recipe.getIngredientList() ){
+//                    if(ingredient.getIngredient_name().equals(ingredientPicked.getIngredient_name())){
+//                        isInThisRecipe = true;
+//                    }
+//                }
+            }
+            if(ingredientsContained){
+                recipes.add(recipe);
+            }
+            ingredientsContained =false ;
+        }
+        if(recipes.size() == 0){
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) tvStatus.getLayoutParams();
+            params.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID;
+            params.topMargin = dpToPx(0);
+            tvStatus.setLayoutParams(params);
+        }
+        else {
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) tvStatus.getLayoutParams();
+            params.bottomToBottom = ConstraintLayout.LayoutParams.UNSET;
+            params.topMargin = dpToPx(30);
+            tvStatus.setLayoutParams(params);
+            tvStatus.setText(R.string.recipes_found);
+        }
 
         for ( Recipe recipe: recipes) {
             Log.d(getString(R.string.default_logging_string),recipe.toString());
@@ -77,10 +123,9 @@ public class RecipeListActivity extends AppCompatActivity {
 
                 if (recipe != null) {
                     titleView.setText(recipe.getName());
-
-
                     ingredientsView.setText(Ingredient.sendIngredientsArrayToTextViewString(recipe.getIngredientList()));
                     descriptionView.setText(recipe.getDescription());
+                    // recipe.getName() + "\n" +  Ingredient.sendIngredientsArrayToTextViewString(recipe.getIngredientList() + "\n" + recipe.getDescription()
                 }
 
                 return view;
@@ -187,4 +232,9 @@ public class RecipeListActivity extends AppCompatActivity {
         }
         return recipes;
     }
+    private int dpToPx(int dp) {
+        return (int) (dp * getResources().getDisplayMetrics().density);
+    }
+
 }
+

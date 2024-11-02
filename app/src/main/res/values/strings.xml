@@ -75,4 +75,6 @@
 
     <string name="time_for_cooking">Time for cooking</string>
     <string name="add_recipe">Add Recipe</string>
+    <string name="selected_ingredients">selected_ingredients</string>
+    <string name="recipes_found">Recipes Found:</string>
 </resources>

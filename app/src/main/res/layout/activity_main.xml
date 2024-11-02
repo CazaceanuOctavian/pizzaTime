@@ -15,7 +15,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="40dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -45,7 +46,7 @@
                 app:layout_constraintBottom_toTopOf="@id/cazaceanu_octavian_no_food_icon"
                 app:layout_constraintTop_toBottomOf="@+id/cazaceanu_octavian_main_appbar_layout"
                 app:layout_constraintVertical_bias="0.94"
-                android:layout_marginTop="64dp"
+                android:layout_marginTop="40dp"
                 android:textSize="32dp"
 
                 />
