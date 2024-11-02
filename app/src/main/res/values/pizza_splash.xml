@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Proiect_Dam_Retete.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#fbe291</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/pizza_drawable</item>
+        <item name="postSplashScreenTheme">@style/Theme.Proiect_Dam_Retete</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+</resources>

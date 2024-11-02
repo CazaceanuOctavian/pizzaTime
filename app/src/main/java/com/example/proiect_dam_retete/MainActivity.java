@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,10 +21,12 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.splashscreen.SplashScreen;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.sql.Time;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -42,22 +45,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        final boolean[] isLoading = {true};
+        SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
+        splashScreen.setKeepOnScreenCondition(() ->{
+            return isLoading[0];
+        });
+        new Handler().postDelayed(()->{
+            isLoading[0] = false;
+        },3000);
 
+        setContentView(R.layout.activity_main);
         // Initialize the launcher
         launcher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 getCallback()
         );
 
-        // Initialize views
-        this.noIngredientTextView = findViewById(R.id.cazaceanu_octavian_tv_no_ingredients);
-        this.noIngredientImageView = findViewById(R.id.cazaceanu_octavian_no_food_icon);
-        this.recipeButtonContainer = findViewById(R.id.cazaceanu_octavian_buttonContainer_recipe);
-        this.buttonContainer = findViewById(R.id.cazaceanu_octavian_buttonContainer);
-        this.mainNav = findViewById(R.id.cazaceanu_octavian_main_navview);
-        this.mainToolbar = findViewById(R.id.cazaceanu_octavian_main_toolbar);
-        this.mainDrawerLayout = findViewById(R.id.cazaceanu_octavian_main_drawer_layout);
+        initializeViews();
         Button navigateButton = findViewById(R.id.main_activity_launch_recipe_list_btn);
         Button addRecipeButton = findViewById(R.id.cazaceanu_octavian_add_recipe_button);
 
@@ -96,6 +100,17 @@ public class MainActivity extends AppCompatActivity {
             Intent getIngredientIntent = new Intent(getApplicationContext(), AddRecipeFormActivity.class);
             launcher.launch(getIngredientIntent);
         });
+    }
+    void initializeViews(){
+        // Initialize views
+        this.noIngredientTextView = findViewById(R.id.cazaceanu_octavian_tv_no_ingredients);
+        this.noIngredientImageView = findViewById(R.id.cazaceanu_octavian_no_food_icon);
+        this.recipeButtonContainer = findViewById(R.id.cazaceanu_octavian_buttonContainer_recipe);
+        this.buttonContainer = findViewById(R.id.cazaceanu_octavian_buttonContainer);
+        this.mainNav = findViewById(R.id.cazaceanu_octavian_main_navview);
+        this.mainToolbar = findViewById(R.id.cazaceanu_octavian_main_toolbar);
+        this.mainDrawerLayout = findViewById(R.id.cazaceanu_octavian_main_drawer_layout);
+
     }
 
     private ActivityResultCallback<ActivityResult> getCallback() {
