@@ -75,6 +75,7 @@ public class MostViewedActivity extends AppCompatActivity {
         };
 
         listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         sortSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
@@ -93,7 +94,7 @@ public class MostViewedActivity extends AppCompatActivity {
         ArrayList<Recipe> sortedRecipes = new ArrayList<>();
 
         for (Recipe recipe : recipes) {
-            if (recipe.getNrViews() > 0) {
+            if (recipe.getNrViews() >= 0) {
                 sortedRecipes.add(recipe);
             }
         }
@@ -112,7 +113,7 @@ public class MostViewedActivity extends AppCompatActivity {
         ArrayList<Recipe> sortedRecipes = new ArrayList<>();
 
         for (Recipe recipe : recipes) {
-            if (recipe.getRating() > 0) {
+            if (recipe.getRating() >= 0) {
                 sortedRecipes.add(recipe);
             }
         }

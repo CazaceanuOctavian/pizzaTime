@@ -162,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (String.valueOf(activityRouter).equals("addRecipeFrom")) {
                     Bundle recipeBundle = result.getData().getParcelableExtra("fetchedRecipeTag");
                     Recipe fetchedRecipe = recipeBundle.getParcelable("recipe");
+                    readRecipes.add(fetchedRecipe);
 
                     setRecipeButton(fetchedRecipe);
                     Log.i("mainActivityRecipe", fetchedRecipe.toString());
