@@ -82,4 +82,5 @@
     <string name="size">Size</string>
     <string name="recipe_list_filters">Recipe List Filters</string>
     <string name="available_recipes">Available Recipes</string>
+    <string name="time_to_cook">Time To Cook</string>
 </resources>

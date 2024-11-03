@@ -83,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
         );
 
         initializeViews();
+        Toolbar toolbar = findViewById(R.id.cazaceanu_octavian_main_toolbar);
+        toolbar.setTitle(R.string.time_to_cook);
 
         Button navigateButton = findViewById(R.id.main_activity_launch_recipe_list_btn);
         Button addRecipeButton = findViewById(R.id.cazaceanu_octavian_add_recipe_button);
