@@ -175,8 +175,8 @@ public class MainActivity extends AppCompatActivity {
 
                     for(int i=0; i<fetchedRecipe.getIngredientList().size(); i++) {
                         addIngredientButton(fetchedRecipe.getIngredientList().get(i), false, getButtonColor(fetchedRecipe.getIngredientList().get(i)));
-
                     }
+
                     setRecipeButton(fetchedRecipe);
                     Log.i("mainActivityRecipe", fetchedRecipe.toString());
                     recipeButtonContainer.setVisibility(View.VISIBLE);
@@ -333,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if(this.recipeButtonContainer.getChildAt(0) != null) {
-            this.recipeButtonContainer.getChildAt(0).setVisibility(View.GONE);
+            this.recipeButtonContainer.getChildAt(recipeButtonContainer.getChildCount()-1).setVisibility(View.GONE);
         }
     }
     public int getButtonColor(Ingredient fetchedIngredient){

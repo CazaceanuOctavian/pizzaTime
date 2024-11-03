@@ -51,6 +51,8 @@ public class AddRecipeFormActivity extends AppCompatActivity {
 //        });
         submitIntent = getIntent();
 
+        ingredients_list.clear();
+
         initialization();
         launcher=registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),

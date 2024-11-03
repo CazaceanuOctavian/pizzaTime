@@ -121,7 +121,7 @@ public class MostViewedActivity extends AppCompatActivity {
         Collections.sort(sortedRecipes, new Comparator<Recipe>() {
             @Override
             public int compare(Recipe r1, Recipe r2) {
-                return Integer.compare(r2.getRating(), r1.getRating()); // Descending order
+                return Integer.compare(r2.getIngredientList().size(), r1.getIngredientList().size()); // Descending order
             }
         });
 
