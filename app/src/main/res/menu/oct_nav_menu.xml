@@ -4,10 +4,10 @@
         <item
             android:id="@+id/cazaceanu_octavian_nav_recipes"
             android:icon="@drawable/baseline_fastfood_24"
-            android:title="@string/oct_nav_menu_avalabile" />
+            android:title="@string/available_recipes" />
         <item
             android:id="@+id/cazaceanu_octavian_nav_most_viewed"
             android:icon="@drawable/baseline_call_made_24"
-            android:title="@string/oct_nav_menu_filter"/>
+            android:title="@string/recipe_list_filters"/>
     </group>
 </menu>

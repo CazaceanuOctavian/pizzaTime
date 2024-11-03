@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/activity_most_viewed_header_text"
+        android:text="@string/filter_recipe_list_by_text"
         />
 
     <LinearLayout
@@ -40,7 +40,7 @@
             android:gravity="end|center_vertical"
             android:minHeight="48dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/most_views_views"/>
+            android:text="@string/views"/>
 
         <Switch
             android:id="@+id/cobzarencu_robert_most_viewed_activity_sort_switch"
@@ -56,7 +56,7 @@
             android:gravity="start|center_vertical"
             android:minHeight="48dp"
             android:layout_marginStart="16dp"
-            android:text="@string/most_views_size"/>
+            android:text="@string/size"/>
     </LinearLayout>
 
     <ListView

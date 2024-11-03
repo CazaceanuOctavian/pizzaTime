@@ -1,5 +1,7 @@
 package com.example.proiect_dam_retete;
 
+import static androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior.getTag;
+
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.database.DataSetObserver;
@@ -196,12 +198,17 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                         Button button;
-                        for (int i = 0; i <buttonContainer.getChildCount() ; i++) {
-                            if((button = (Button) buttonContainer.getChildAt(i)).getTag().toString().equals("pure" + fetchedIngredient.getIngredient_name())){
-                                button.setText(fetchedIngredient.getIngredient_name().toString() +
-                                        '\n' +
-                                        Float.valueOf(fetchedIngredient.getQuantity()).toString()
-                                );
+                        for (int i = 0; i <inputedIngredients.size(); i++) {
+                            button = (Button)buttonContainer.getChildAt(i);
+                            Object tag = button.getTag();
+                            if(tag != null){
+                                if((tag.toString().equals("pure" + fetchedIngredient.getIngredient_name()))){
+                                    button.setText(fetchedIngredient.getIngredient_name().toString() +
+                                            '\n' +
+                                            Float.valueOf(fetchedIngredient.getQuantity()).toString()
+                                    );
+                                    button.setVisibility(View.VISIBLE);
+                                }
                             }
                         }
                         //if no work, put redraw after this
@@ -263,6 +270,8 @@ public class MainActivity extends AppCompatActivity {
         //tag-urile pure nu isi iau delete
         if (isPure)
             button.setTag("pure" + fetchedIngredient.getIngredient_name());
+        else
+            button.setTag("imp");
 
         Float quantity = new Float(0);
         for (Ingredient ingredient: inputedIngredients
@@ -304,16 +313,18 @@ public class MainActivity extends AppCompatActivity {
 
         button.setBackground(rippleDrawable);
 
-
         // Add button to container
         buttonContainer.addView(button);
         //add onClick to delete
+        if(isPure){
         button.setOnLongClickListener(view -> {
-            button.setTag("imp");
-            button.setVisibility(View.GONE);
-            inputedIngredients.remove(fetchedIngredient);
+                 button.setTag("imp");
+                button.setVisibility(View.GONE);
+                inputedIngredients.remove(fetchedIngredient);
             return true;
         });
+        }
+
     }
 
     private int dpToPx(int dp) {
@@ -322,19 +333,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void reinitializeIngredientViews() {
-        for(int i=0; i<this.buttonContainer.getChildCount(); i++) {
+        Integer size = this.buttonContainer.getChildCount();
+        for(int i=0; i<size; i++) {
             View currentView = this.buttonContainer.getChildAt(i);
-            if(currentView.getTag() != null && currentView.getTag().toString().startsWith("pure")) {
-                currentView.setVisibility(View.VISIBLE);
+            if(currentView != null )    {
+                if( currentView.getTag() != null && currentView.getTag().toString().startsWith("pure")) {
+                    currentView.setVisibility(View.VISIBLE);
+                }
+                else {
+
+                    currentView.setVisibility(View.GONE);
+                    buttonContainer.removeView(currentView);
+                    i--;
+                }
             }
-            else {
-                currentView.setVisibility(View.GONE);
-            }
+
         }
 
         if(this.recipeButtonContainer.getChildAt(0) != null) {
             this.recipeButtonContainer.getChildAt(recipeButtonContainer.getChildCount()-1).setVisibility(View.GONE);
         }
+
     }
     public int getButtonColor(Ingredient fetchedIngredient){
         int color = Color.WHITE;

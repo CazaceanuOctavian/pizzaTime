@@ -77,9 +77,9 @@
     <string name="add_recipe">Add Recipe</string>
     <string name="selected_ingredients">selected_ingredients</string>
     <string name="recipes_found">Recipes Found:</string>
-    <string name="most_views_views">Views</string>
-    <string name="most_views_size">Size</string>
-    <string name="oct_nav_menu_filter">Recipe List Filters</string>
-    <string name="oct_nav_menu_avalabile">Avalabile Recipes</string>
-    <string name="activity_most_viewed_header_text">Filter recipe list by:</string>
+    <string name="filter_recipe_list_by_text">Filter recipe list by:</string>
+    <string name="views">Views</string>
+    <string name="size">Size</string>
+    <string name="recipe_list_filters">Recipe List Filters</string>
+    <string name="available_recipes">Available Recipes</string>
 </resources>
