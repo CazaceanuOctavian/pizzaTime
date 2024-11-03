@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Setup navigation listener
         mainNav.setNavigationItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.nav_recipes) {
+            if (item.getItemId() == R.id.cazaceanu_octavian_nav_recipes) {
                 reinitializeIngredientViews();
                 Intent intent = new Intent(MainActivity.this, RecipeListActivity.class);
                 Bundle bundle = new Bundle();
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 launcher.launch(intent);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             }
-            else if (item.getItemId() == R.id.nav_most_viewed) {
+            else if (item.getItemId() == R.id.cazaceanu_octavian_nav_most_viewed) {
                 reinitializeIngredientViews();
                 Intent intent = new Intent(MainActivity.this, MostViewedActivity.class);
                 Bundle bundle = new Bundle();

@@ -66,7 +66,7 @@ public class MostViewedActivity extends AppCompatActivity {
                 if (recipe != null) {
                     nameView.setText(recipe.getName());
                     descView.setText(recipe.getDescription());
-                    ratingView.setText("Rating: " + recipe.getRating());
+                    ratingView.setText("Recipe size: " + recipe.getIngredientList().size());
                     nrView.setText("Views: " + recipe.getNrViews());
                 }
 

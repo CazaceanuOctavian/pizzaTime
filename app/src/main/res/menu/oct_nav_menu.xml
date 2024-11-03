@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_recipes"
+            android:id="@+id/cazaceanu_octavian_nav_recipes"
             android:icon="@drawable/baseline_fastfood_24"
-            android:title="@string/nav_menu_recipes" />
+            android:title="@string/oct_nav_menu_avalabile" />
         <item
-            android:id="@+id/nav_most_viewed"
+            android:id="@+id/cazaceanu_octavian_nav_most_viewed"
             android:icon="@drawable/baseline_call_made_24"
-            android:title="@string/nav_menu_most_viewed" />
+            android:title="@string/oct_nav_menu_filter"/>
     </group>
 </menu>
