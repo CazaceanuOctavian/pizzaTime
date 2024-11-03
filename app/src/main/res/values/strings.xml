@@ -98,4 +98,7 @@
     <string name="invalid_quantity">Invalid quantity</string>
     <string name="append_dash">" - "</string>
     <string name="fetched_recipe_tag">fetchedRecipeTag</string>
+    <string name="recipe_size">"Recipe size: "</string>
+    <string name="views_comma">"Views: "</string>
+    <string name="new_recipe">new_recipe</string>
 </resources>

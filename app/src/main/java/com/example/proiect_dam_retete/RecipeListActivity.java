@@ -126,7 +126,6 @@ public class RecipeListActivity extends AppCompatActivity {
                     titleView.setText(recipe.getName());
                     ingredientsView.setText(Ingredient.sendIngredientsArrayToTextViewString(recipe.getIngredientList()));
                     descriptionView.setText(recipe.getDescription());
-                    // recipe.getName() + "\n" +  Ingredient.sendIngredientsArrayToTextViewString(recipe.getIngredientList() + "\n" + recipe.getDescription()
                 }
 
                 return view;
@@ -158,7 +157,7 @@ public class RecipeListActivity extends AppCompatActivity {
                 result -> {
                     if(result.getResultCode() == RESULT_OK){
                         Intent data = result.getData();
-                        Bundle bundle = data.getBundleExtra("new_recipe");
+                        Bundle bundle = data.getBundleExtra(getString(R.string.new_recipe));
                     }
                 }
         );
@@ -197,32 +196,6 @@ public class RecipeListActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
     }
 
-//    private ArrayList<Recipe> generateRandomRecipes(int count) {
-//        ArrayList<Recipe> recipes = new ArrayList<>();
-//        Random random = new Random();
-//
-//        String[] sampleNames = {"Pasta", "Curry", "Salad", "Soup", "Stew"};
-//        String[] sampleDescriptions = {
-//                "Quick dinner recipe",
-//                "Healthy lunch option",
-//                "Easy to make meal"
-//        };
-//
-//        for(int i = 0; i < count; i++) {
-//            ArrayList<Ingredient> ingredients = new ArrayList<>();
-//            for (int j = 0; j < 5; j++) {
-//                ingredients.add(new Ingredient(random.nextFloat() * 5,
-//                        EIngredients.values()[new Random().nextInt(EIngredients.values().length)]));
-//            }
-//
-//            String name = sampleNames[random.nextInt(sampleNames.length)];
-//            String desc = sampleDescriptions[random.nextInt(sampleDescriptions.length)];
-//            Recipe recipe = new Recipe(name, ingredients, desc, random.nextInt(100), random.nextInt(6));
-//
-//            recipes.add(recipe);
-//        }
-//        return recipes;
-//    }
     private int dpToPx(int dp) {
         return (int) (dp * getResources().getDisplayMetrics().density);
     }

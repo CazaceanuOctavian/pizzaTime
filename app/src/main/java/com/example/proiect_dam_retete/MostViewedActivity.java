@@ -66,8 +66,8 @@ public class MostViewedActivity extends AppCompatActivity {
                 if (recipe != null) {
                     nameView.setText(recipe.getName());
                     descView.setText(recipe.getDescription());
-                    ratingView.setText("Recipe size: " + recipe.getIngredientList().size());
-                    nrView.setText("Views: " + recipe.getNrViews());
+                    ratingView.setText(getString(R.string.recipe_size) + recipe.getIngredientList().size());
+                    nrView.setText(getString(R.string.views_comma) + recipe.getNrViews());
                 }
 
                 return view;
@@ -128,31 +128,6 @@ public class MostViewedActivity extends AppCompatActivity {
         return sortedRecipes;
     }
 
-    private ArrayList<Recipe> generateRandomRecipes(int count) {
-        ArrayList<Recipe> recipes = new ArrayList<>();
-        Random random = new Random();
-
-        String[] sampleNames = {"Pasta", "Curry", "Salad", "Soup", "Stew"};
-        String[] sampleDescriptions = {
-                "Quick dinner recipe",
-                "Healthy lunch option",
-                "Easy to make meal"
-        };
-
-        for(int i = 0; i < count; i++) {
-            // Create random ingredients
-            ArrayList<Ingredient> ingredients = new ArrayList<>();
-            ingredients.add(new Ingredient(random.nextFloat() * 5, EIngredients.TOMATO));
-
-            // Create recipe with random name and description
-            String name = sampleNames[random.nextInt(sampleNames.length)];
-            String desc = sampleDescriptions[random.nextInt(sampleDescriptions.length)];
-            Recipe recipe = new Recipe(name, ingredients, desc, random.nextInt(100), random.nextInt(5)+1);
-
-            recipes.add(recipe);
-        }
-        return recipes;
-    }
     private void setBackPressAnimation(boolean enabled, int newActivityEntryAnimation, int oldActivityExitAnimation) {
         OnBackPressedDispatcher backPressed = getOnBackPressedDispatcher();
         OnBackPressedCallback callback = new OnBackPressedCallback(enabled) {
