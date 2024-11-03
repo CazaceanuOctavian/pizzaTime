@@ -101,4 +101,9 @@
     <string name="recipe_size">"Recipe size: "</string>
     <string name="views_comma">"Views: "</string>
     <string name="new_recipe">new_recipe</string>
+    <string name="choose_the_desired_ingredient">Choose the desired ingredient</string>
+    <string name="quantity">Quantity</string>
+    <string name="add">Add</string>
+    <string name="no_ingredients_have_been_added_yet">No ingredients have been added yet!</string>
+    <string name="no_available_recipes">No Available Recipes</string>
 </resources>

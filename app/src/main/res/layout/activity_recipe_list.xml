@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="No Available Recipes"
+        android:text="@string/no_available_recipes"
         android:textColor = "@color/black"
         android:textAlignment="center"
         android:textSize="20dp"

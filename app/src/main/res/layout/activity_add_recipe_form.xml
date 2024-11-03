@@ -81,7 +81,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="8dp"
         android:textAlignment="center"
-        android:text="No ingredients have been added yet!">
+        android:text="@string/no_ingredients_have_been_added_yet">
     </TextView>
 
     <com.google.android.material.textfield.TextInputLayout
