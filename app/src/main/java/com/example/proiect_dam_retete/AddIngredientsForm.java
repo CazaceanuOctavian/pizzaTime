@@ -65,9 +65,9 @@ public class AddIngredientsForm extends AppCompatActivity {
                     Ingredient selectedIngredient = new Ingredient(quantityText, ingredientType);
 
                     Bundle bundle = new Bundle();
-                    bundle.putParcelable("ingredient", selectedIngredient);
-                    intent_submit.putExtra("activityOrigin", "addIngredientsFrom");
-                    intent_submit.putExtra("fetchedIngredientTag", bundle);
+                    bundle.putParcelable(getString(R.string.ingredient), selectedIngredient);
+                    intent_submit.putExtra(getString(R.string.activity_origin), getString(R.string.add_ingredients_from));
+                    intent_submit.putExtra(getString(R.string.fetched_ingredient_tag), bundle);
                     setResult(RESULT_OK, intent_submit);
                     finish();
                     overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
@@ -78,20 +78,20 @@ public class AddIngredientsForm extends AppCompatActivity {
 
     private boolean isValid() {
         if (quantityEditText == null || quantityEditText.getText() == null) {
-            Toast.makeText(getApplicationContext(), "System error: form not properly initialized", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.system_error_form_not_properly_initialized), Toast.LENGTH_SHORT).show();
             return false;
         }
 
         String quantityText = quantityEditText.getText().toString().trim();
         if (quantityText.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Please introduce a valid quantity", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.please_introduce_a_valid_quantity), Toast.LENGTH_SHORT).show();
             return false;
         }
 
         try {
             Float.parseFloat(quantityText);
         } catch (NumberFormatException e) {
-            Toast.makeText(getApplicationContext(), "Invalid quantity", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),getString(R.string.invalid_quantity), Toast.LENGTH_SHORT).show();
             return false;
         }
 

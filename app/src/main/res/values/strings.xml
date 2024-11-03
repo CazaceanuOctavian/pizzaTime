@@ -83,4 +83,17 @@
     <string name="recipe_list_filters">Recipe List Filters</string>
     <string name="available_recipes">Available Recipes</string>
     <string name="time_to_cook">Time To Cook</string>
+    <string name="main_activity_recipe">mainActivityRecipe</string>
+    <string name="add_ingredients_from">addIngredientsFrom</string>
+    <string name="fetched_ingredient_tag">fetchedIngredientTag</string>
+    <string name="ingredient">ingredient</string>
+    <string name="pure">pure</string>
+    <string name="main_activity_ingredient">mainActivityIngredient</string>
+    <string name="add_recipe_from">addRecipeFrom</string>
+    <string name="recipe">recipe</string>
+    <string name="new_line">\n</string>
+    <string name="imp_tag">imp</string>
+    <string name="system_error_form_not_properly_initialized">System error: form not properly initialized</string>
+    <string name="please_introduce_a_valid_quantity">Please introduce a valid quantity</string>
+    <string name="invalid_quantity">Invalid quantity</string>
 </resources>

@@ -157,10 +157,10 @@ public class MainActivity extends AppCompatActivity {
                 noIngredientTextView.setVisibility(View.GONE);
                 noIngredientImageView.setVisibility(View.GONE);
 
-                String activityRouter = result.getData().getStringExtra("activityOrigin");
-                if(String.valueOf(activityRouter).equals("RecipeListActivity")) {
-                    Bundle fetchedRecipeBundle = result.getData().getParcelableExtra("fetchedRecipeBundle");
-                    Recipe fetchedRecipe = fetchedRecipeBundle.getParcelable("fetchedRecipe");
+                String activityRouter = result.getData().getStringExtra(getString(R.string.activity_origin));
+                if(String.valueOf(activityRouter).equals(getString(R.string.recipe_list_activity))) {
+                    Bundle fetchedRecipeBundle = result.getData().getParcelableExtra(getString(R.string.fetched_recipe_bundle));
+                    Recipe fetchedRecipe = fetchedRecipeBundle.getParcelable(getString(R.string.fetched_recipe));
 
 
                     //hide the current ingredients and replace them with the needed ingredients for the selected recipe
@@ -182,12 +182,12 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     setRecipeButton(fetchedRecipe);
-                    Log.i("mainActivityRecipe", fetchedRecipe.toString());
+                    Log.i(getString(R.string.main_activity_recipe), fetchedRecipe.toString());
                     recipeButtonContainer.setVisibility(View.VISIBLE);
 
-                } else if (String.valueOf(activityRouter).equals("addIngredientsFrom")) {
-                    Bundle ingredientBundle = result.getData().getParcelableExtra("fetchedIngredientTag");
-                    Ingredient fetchedIngredient = ingredientBundle.getParcelable("ingredient");
+                } else if (String.valueOf(activityRouter).equals(getString(R.string.add_ingredients_from))) {
+                    Bundle ingredientBundle = result.getData().getParcelableExtra(getString(R.string.fetched_ingredient_tag));
+                    Ingredient fetchedIngredient = ingredientBundle.getParcelable(getString(R.string.ingredient));
                     if(inputedIngredients
                         .stream()
                         .map(Ingredient::getIngredient_name)
@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
                             button = (Button)buttonContainer.getChildAt(i);
                             Object tag = button.getTag();
                             if(tag != null){
-                                if((tag.toString().equals("pure" + fetchedIngredient.getIngredient_name()))){
+                                if((tag.toString().equals(getString(R.string.pure) + fetchedIngredient.getIngredient_name()))){
                                     button.setText(fetchedIngredient.getIngredient_name().toString() +
                                             '\n' +
                                             Float.valueOf(fetchedIngredient.getQuantity()).toString()
@@ -218,18 +218,18 @@ public class MainActivity extends AppCompatActivity {
                     else{
                         inputedIngredients.add(fetchedIngredient);
                         addIngredientButton(fetchedIngredient, true, Color.WHITE);
-                        Log.i("mainActivityIngredient", fetchedIngredient.toString());
+                        Log.i(getString(R.string.main_activity_ingredient), fetchedIngredient.toString());
 
                     }
 
-                } else if (String.valueOf(activityRouter).equals("addRecipeFrom")) {
-                    Bundle recipeBundle = result.getData().getParcelableExtra("fetchedRecipeTag");
-                    Recipe fetchedRecipe = recipeBundle.getParcelable("recipe");
+                } else if (String.valueOf(activityRouter).equals(getString(R.string.add_recipe_from))) {
+                    Bundle recipeBundle = result.getData().getParcelableExtra(getString(R.string.fetched_ingredient_tag));
+                    Recipe fetchedRecipe = recipeBundle.getParcelable(getString(R.string.recipe));
                     fetchedRecipe.setNrViews(fetchedRecipe.getNrViews() + 1);
                     readRecipes.add(fetchedRecipe);
 
                     setRecipeButton(fetchedRecipe);
-                    Log.i("mainActivityRecipe", fetchedRecipe.toString());
+                    Log.i(getString(R.string.main_activity_recipe), fetchedRecipe.toString());
                 }
             }
         };
@@ -245,10 +245,9 @@ public class MainActivity extends AppCompatActivity {
         button.setBackground(getResources().getDrawable(R.drawable.main_activity_button_styles, getTheme()));
         params.setMargins(dpToPx(16), dpToPx(8), dpToPx(16), dpToPx(8));
 
-        // recipe.getName() + "\n" +  Ingredient.sendIngredientsArrayToTextViewString(recipe.getIngredientList() + "\n" + recipe.getDescription()
         button.setText(
-         recipe.getName() + "\n" +
-         Ingredient.sendIngredientsArrayToTextViewString(recipe.getIngredientList() )+ "\n" +
+         recipe.getName() + getString(R.string.new_line) +
+         Ingredient.sendIngredientsArrayToTextViewString(recipe.getIngredientList() )+ getString(R.string.new_line) +
          recipe.getDescription()
         );
 
@@ -271,9 +270,9 @@ public class MainActivity extends AppCompatActivity {
 
         //tag-urile pure nu isi iau delete
         if (isPure)
-            button.setTag("pure" + fetchedIngredient.getIngredient_name());
+            button.setTag(getString(R.string.pure) + fetchedIngredient.getIngredient_name());
         else
-            button.setTag("imp");
+            button.setTag(getString(R.string.imp_tag));
 
         Float quantity = new Float(0);
         for (Ingredient ingredient: inputedIngredients
@@ -283,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        button.setText(fetchedIngredient.getIngredient_name().toString() + '\n' + quantity.toString());
+        button.setText(fetchedIngredient.getIngredient_name().toString() + getString(R.string.new_line) + quantity.toString());
         button.setPadding(dpToPx(16), dpToPx(12), dpToPx(16), dpToPx(12)); // Increased padding
         button.setTextColor(Color.BLACK);
         button.setElevation(dpToPx(2));
@@ -320,7 +319,7 @@ public class MainActivity extends AppCompatActivity {
         //add onClick to delete
         if(isPure){
         button.setOnLongClickListener(view -> {
-                 button.setTag("imp");
+                 button.setTag(getString(R.string.imp_tag));
                 button.setVisibility(View.GONE);
                 inputedIngredients.remove(fetchedIngredient);
             return true;
@@ -339,7 +338,7 @@ public class MainActivity extends AppCompatActivity {
         for(int i=0; i<size; i++) {
             View currentView = this.buttonContainer.getChildAt(i);
             if(currentView != null )    {
-                if( currentView.getTag() != null && currentView.getTag().toString().startsWith("pure")) {
+                if( currentView.getTag() != null && currentView.getTag().toString().startsWith(getString(R.string.pure))) {
                     currentView.setVisibility(View.VISIBLE);
                 }
                 else {
