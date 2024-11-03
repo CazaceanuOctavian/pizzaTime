@@ -96,4 +96,6 @@
     <string name="system_error_form_not_properly_initialized">System error: form not properly initialized</string>
     <string name="please_introduce_a_valid_quantity">Please introduce a valid quantity</string>
     <string name="invalid_quantity">Invalid quantity</string>
+    <string name="append_dash">" - "</string>
+    <string name="fetched_recipe_tag">fetchedRecipeTag</string>
 </resources>

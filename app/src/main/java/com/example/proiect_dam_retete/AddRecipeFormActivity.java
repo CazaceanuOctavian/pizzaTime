@@ -28,7 +28,6 @@ import java.util.List;
 
 public class AddRecipeFormActivity extends AppCompatActivity {
 
-    public static final String RECIPE_KEY = "RECIPE_KEY";
     private TextInputEditText add_recipe_name;
     private TextInputEditText add_recipe_description;
     private Button add_recipe_submit_btn;
@@ -65,17 +64,17 @@ public class AddRecipeFormActivity extends AppCompatActivity {
             @Override
             public void onActivityResult(ActivityResult result) {
                 if(result.getResultCode()==RESULT_OK && result.getData()!=null) {
-                    Bundle ingredientBundle = result.getData().getParcelableExtra("fetchedIngredientTag");
-                    Ingredient fetchedIngredient = ingredientBundle.getParcelable("ingredient");
+                    Bundle ingredientBundle = result.getData().getParcelableExtra(getString(R.string.fetched_ingredient_tag));
+                    Ingredient fetchedIngredient = ingredientBundle.getParcelable(getString(R.string.ingredient));
 
                     ingredients_list.add(fetchedIngredient);
                     StringBuilder ingredients=new StringBuilder();
                     for(Ingredient i : ingredients_list)
                     {
                         ingredients.append(i.getIngredient_name());
-                        ingredients.append(" - ");
+                        ingredients.append(getString(R.string.append_dash));
                         ingredients.append(i.getQuantity());
-                        ingredients.append("\n");
+                        ingredients.append(getString(R.string.new_line));
                     }
                     ingredients_list_text_view.setText(ingredients.toString());
                 }
@@ -110,9 +109,9 @@ public class AddRecipeFormActivity extends AppCompatActivity {
                     Recipe recipe=new Recipe(recipe_name, ingredients_list, recipe_description);
 
                     Bundle sendBundle = new Bundle();
-                    sendBundle.putParcelable("recipe", recipe);
-                    submitIntent.putExtra("fetchedRecipeTag", sendBundle);
-                    submitIntent.putExtra("activityOrigin", "addRecipeFrom");
+                    sendBundle.putParcelable(getString(R.string.recipe), recipe);
+                    submitIntent.putExtra(getString(R.string.fetched_recipe_tag), sendBundle);
+                    submitIntent.putExtra(getString(R.string.activity_origin), getString(R.string.add_recipe_from));
                     setResult(RESULT_OK,submitIntent);
                     finish();
                     overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
