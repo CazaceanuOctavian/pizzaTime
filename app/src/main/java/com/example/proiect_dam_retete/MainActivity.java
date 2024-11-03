@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
                             if(tag != null){
                                 if((tag.toString().equals(getString(R.string.pure) + fetchedIngredient.getIngredient_name()))){
                                     button.setText(fetchedIngredient.getIngredient_name().toString() +
-                                            '\n' +
+                                            getString(R.string.new_line) +
                                             Float.valueOf(fetchedIngredient.getQuantity()).toString()
                                     );
                                     button.setVisibility(View.VISIBLE);
