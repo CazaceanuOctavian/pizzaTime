@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.IntFunction;
 
 public class Recipe implements Parcelable {
@@ -208,5 +209,18 @@ public class Recipe implements Parcelable {
             return null;
         }
         return recipes;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Recipe recipe = (Recipe) o;
+        return Objects.equals(name, recipe.name) && Objects.equals(ingredientList, recipe.ingredientList) && Objects.equals(description, recipe.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, ingredientList, description);
     }
 }

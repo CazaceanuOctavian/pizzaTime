@@ -165,6 +165,14 @@ public class MainActivity extends AppCompatActivity {
                         child.setVisibility(View.GONE);
                     }
 
+                    //increment with 1 the views of the selected Recipe
+                    for (Recipe recipe : readRecipes) {
+                        if (recipe.equals(fetchedRecipe)) {
+                            recipe.setNrViews(recipe.getNrViews() + 1);
+                            break;
+                        }
+                    }
+
                     for(int i=0; i<fetchedRecipe.getIngredientList().size(); i++) {
                         addIngredientButton(fetchedRecipe.getIngredientList().get(i), false, getButtonColor(fetchedRecipe.getIngredientList().get(i)));
 
@@ -208,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (String.valueOf(activityRouter).equals("addRecipeFrom")) {
                     Bundle recipeBundle = result.getData().getParcelableExtra("fetchedRecipeTag");
                     Recipe fetchedRecipe = recipeBundle.getParcelable("recipe");
+                    fetchedRecipe.setNrViews(fetchedRecipe.getNrViews() + 1);
                     readRecipes.add(fetchedRecipe);
 
                     setRecipeButton(fetchedRecipe);
